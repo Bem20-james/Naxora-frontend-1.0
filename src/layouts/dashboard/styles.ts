@@ -16,13 +16,13 @@ export const styles = {
     objectFit: "contain",
     marginTop: "10px",
   },
-  mobileLogo: <CSSProperties>{
+  mobileLogo: {
     display: "block",
     width: "100%",
     height: "100%",
     objectFit: "contain",
     marginTop: "5px",
-  },
+  } as CSSProperties,
   wrap: {
     display: "flex",
     backgroundImage:
@@ -41,7 +41,6 @@ export const styles = {
     pb: layoutPad + "px",
     p: 3,
     ml: drawerWidth + "px",
-    backgroundColor: "whitesmoke",
   },
   navbar: {
     //backgroundColor: ColorPallete.primary.disabled,

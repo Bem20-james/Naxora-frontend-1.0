@@ -1,8 +1,10 @@
-import { Box, Stack, Typography, Button, IconButton } from "@mui/material";
+import { Box, Stack, Typography, Avatar, IconButton } from "@mui/material";
 import SegmentIcon from "@mui/icons-material/Segment";
 import { useEffect, useState } from "react";
 import { styles } from "../styles";
 import { FontFamily } from "../../../config/fonts";
+import { LogoutRounded } from "@mui/icons-material";
+import { ColorPallete } from "../../../config/colors";
 
 interface NavBarProps {
   open: boolean;
@@ -75,7 +77,23 @@ const NavBar = ({ open, toggleDrawer }: NavBarProps) => {
         alignItems="center"
         gap={2}
         sx={{ display: { xs: "none", md: "flex" } }}
-      ></Stack>
+      >
+        <IconButton sx={{ color: "#FFFFFF" }}>
+          <Avatar
+            sx={{
+              width: 40,
+              height: 40,
+              background: `linear-gradient(135deg, ${ColorPallete.primary.main} 0%, ${ColorPallete.secondary.main} 100%)`,
+              fontWeight: 700,
+            }}
+          >
+            {"T"}
+          </Avatar>
+        </IconButton>
+        <IconButton sx={{ color: "#FFFFFF" }}>
+          <LogoutRounded />
+        </IconButton>
+      </Stack>
     </Box>
   );
 };

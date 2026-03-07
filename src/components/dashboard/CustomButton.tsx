@@ -1,4 +1,4 @@
-import { forwardRef, ReactNode } from "react";
+import { forwardRef, type ReactNode } from "react";
 import {
   Button as MuiButton,
   type ButtonProps as MuiButtonProps,
@@ -6,14 +6,11 @@ import {
   Box,
   Tooltip,
   type TooltipProps,
-  SxProps,
-  Theme,
+  type SxProps,
+  type Theme,
 } from "@mui/material";
-import { Link, LinkProps } from "react-router-dom";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// TYPES
-// ─────────────────────────────────────────────────────────────────────────────
+import { type SystemStyleObject } from "@mui/system";
+import { Link, type LinkProps } from "react-router-dom";
 
 type ButtonVariant =
   | "primary"
@@ -21,7 +18,10 @@ type ButtonVariant =
   | "accent"
   | "danger"
   | "success"
+  | "info"
   | "outline";
+
+type ButtonShadow = "none" | "sm" | "md" | "lg";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 type ButtonShape = "rounded" | "pill" | "square";
 
@@ -29,44 +29,32 @@ export interface ButtonProps extends Omit<
   MuiButtonProps,
   "variant" | "size" | "color"
 > {
-  /** Visual style of the button */
   variant?: ButtonVariant;
-  /** Size preset */
   size?: ButtonSize;
-  /** Border radius shape */
   shape?: ButtonShape;
-  /** Icon placed before the label */
+  shadow?: ButtonShadow;
   startIcon?: ReactNode;
-  /** Icon placed after the label */
   endIcon?: ReactNode;
-  /** Shows a spinner and disables the button */
   loading?: boolean;
-  /** Custom loading text shown while `loading` is true */
   loadingText?: string;
-  /** Renders as a full-width block button */
   fullWidth?: boolean;
-  /** React Router `to` prop — renders the button as a `<Link>` */
   to?: LinkProps["to"];
-  /** Native href — renders the button as an `<a>` tag */
   href?: string;
-  /** Opens href in a new tab (only used with `href`) */
   external?: boolean;
-  /** Wraps the button in a MUI Tooltip */
   tooltip?: string;
-  /** Tooltip placement (default: "top") */
   tooltipPlacement?: TooltipProps["placement"];
-  /** Extra sx overrides */
   sx?: SxProps<Theme>;
-  /** Children / label */
   children?: ReactNode;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// STYLE MAPS
+// Style lookup tables — typed as SystemStyleObject (never SxProps) so each
+// entry is always a plain object and TypeScript can safely spread them into
+// the composedSx array below without hitting the index-signature error.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const VARIANT_STYLES: Record<ButtonVariant, SxProps<Theme>> = {
-  primary: {
+const VARIANT_STYLES: Record<ButtonVariant, SystemStyleObject<Theme>> = {
+  info: {
     background: "linear-gradient(135deg, #F5C518 0%, #E0A800 100%)",
     color: "#1A1A0E",
     fontWeight: 700,
@@ -134,9 +122,20 @@ const VARIANT_STYLES: Record<ButtonVariant, SxProps<Theme>> = {
     },
     "&:active": { transform: "translateY(0px)" },
   },
+  primary: {
+    background: "linear-gradient(135deg, #2196F3 0%, #1565C0 100%)",
+    color: "#FFFFFF",
+    boxShadow: "0 4px 16px rgba(33,150,243,0.25)",
+    "&:hover": {
+      background: "linear-gradient(135deg, #42A5F5 0%, #1E88E5 100%)",
+      boxShadow: "0 6px 22px rgba(33,150,243,0.38)",
+      transform: "translateY(-1px)",
+    },
+    "&:active": { transform: "translateY(0px)" },
+  },
 };
 
-const SIZE_STYLES: Record<ButtonSize, SxProps<Theme>> = {
+const SIZE_STYLES: Record<ButtonSize, SystemStyleObject<Theme>> = {
   xs: { fontSize: "11px", px: 1.5, py: 0.5, minHeight: 28 },
   sm: { fontSize: "12.5px", px: 2, py: 0.75, minHeight: 34 },
   md: { fontSize: "14px", px: 2.5, py: 1, minHeight: 42 },
@@ -144,10 +143,17 @@ const SIZE_STYLES: Record<ButtonSize, SxProps<Theme>> = {
   xl: { fontSize: "16px", px: 5, py: 1.6, minHeight: 58 },
 };
 
-const SHAPE_STYLES: Record<ButtonShape, SxProps<Theme>> = {
+const SHAPE_STYLES: Record<ButtonShape, SystemStyleObject<Theme>> = {
   rounded: { borderRadius: "10px" },
   pill: { borderRadius: "100px" },
   square: { borderRadius: "4px" },
+};
+
+const SHADOW_STYLES: Record<ButtonShadow, SystemStyleObject<Theme>> = {
+  none: { boxShadow: "none" },
+  sm: { boxShadow: "0 2px 6px rgba(0,0,0,0.15)" },
+  md: { boxShadow: "0 4px 16px rgba(0,0,0,0.22)" },
+  lg: { boxShadow: "0 8px 28px rgba(0,0,0,0.30)" },
 };
 
 const SPINNER_SIZE: Record<ButtonSize, number> = {
@@ -158,16 +164,13 @@ const SPINNER_SIZE: Record<ButtonSize, number> = {
   xl: 20,
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// COMPONENT
-// ─────────────────────────────────────────────────────────────────────────────
-
 const AppButton = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       variant = "primary",
       size = "md",
       shape = "rounded",
+      shadow = "none",
       loading = false,
       loadingText,
       fullWidth = false,
@@ -188,37 +191,42 @@ const AppButton = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const isDisabled = disabled || loading;
 
-    // ── Compose sx ──────────────────────────────────────────────────────────
-    const composedSx: SxProps<Theme> = {
-      // Base resets
-      textTransform: "none",
-      fontWeight: 500,
-      letterSpacing: "0.2px",
-      lineHeight: 1,
-      transition: "all 0.2s ease",
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "8px",
-      position: "relative",
-      overflow: "hidden",
-      width: fullWidth ? "100%" : undefined,
-      // Disabled state
-      "&.Mui-disabled": {
-        opacity: 0.45,
-        cursor: "not-allowed",
-        pointerEvents: "auto",
-        transform: "none !important",
-        boxShadow: "none !important",
-      },
-      // Spread variant + size + shape
-      ...VARIANT_STYLES[variant],
-      ...SIZE_STYLES[size],
-      ...SHAPE_STYLES[shape],
-      // Consumer overrides last
-      ...sx,
-    };
+    // MUI supports SxProps as an array of SystemStyleObject entries.
+    // All lookup-table entries are SystemStyleObject so they are safe here.
+    // The consumer's `sx` prop may itself be an array (SxProps), so we spread
+    // it in with Array.isArray to keep the outer array flat.
+    const composedSx: SxProps<Theme> = [
+      {
+        textTransform: "none",
+        fontWeight: 500,
+        letterSpacing: "0.2px",
+        lineHeight: 1,
+        transition: "all 0.2s ease",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "8px",
+        position: "relative",
+        overflow: "hidden",
+        width: fullWidth ? "100%" : undefined,
+        "&.Mui-disabled": {
+          opacity: 0.45,
+          cursor: "not-allowed",
+          pointerEvents: "auto",
+          transform: "none !important",
+          boxShadow: "none !important",
+        },
+      } satisfies SystemStyleObject<Theme>,
 
-    // ── Link resolution ──────────────────────────────────────────────────────
+      VARIANT_STYLES[variant],
+      SIZE_STYLES[size],
+      SHAPE_STYLES[shape],
+      SHADOW_STYLES[shadow],
+
+      // Flatten `sx` so the array never contains a nested array,
+      // which is what causes the TS2322 index-signature error.
+      ...(Array.isArray(sx) ? sx : [sx]),
+    ];
+
     const linkProps = to
       ? { component: Link, to }
       : href
@@ -231,22 +239,16 @@ const AppButton = forwardRef<HTMLButtonElement, ButtonProps>(
           }
         : {};
 
-    // ── Inner content ────────────────────────────────────────────────────────
     const content = (
       <>
-        {/* Loading spinner */}
         {loading && (
           <CircularProgress
             size={SPINNER_SIZE[size]}
             thickness={5}
-            sx={{
-              color: "inherit",
-              flexShrink: 0,
-            }}
+            sx={{ color: "inherit", flexShrink: 0 }}
           />
         )}
 
-        {/* Start icon (hidden while loading) */}
         {!loading && startIcon && (
           <Box
             component="span"
@@ -256,10 +258,8 @@ const AppButton = forwardRef<HTMLButtonElement, ButtonProps>(
           </Box>
         )}
 
-        {/* Label */}
         {loading && loadingText ? loadingText : children}
 
-        {/* End icon (hidden while loading) */}
         {!loading && endIcon && (
           <Box
             component="span"
@@ -271,7 +271,6 @@ const AppButton = forwardRef<HTMLButtonElement, ButtonProps>(
       </>
     );
 
-    // ── Button element ───────────────────────────────────────────────────────
     const button = (
       <MuiButton
         ref={ref}
@@ -287,11 +286,9 @@ const AppButton = forwardRef<HTMLButtonElement, ButtonProps>(
       </MuiButton>
     );
 
-    // ── Tooltip wrapper ──────────────────────────────────────────────────────
     if (tooltip) {
       return (
         <Tooltip title={tooltip} placement={tooltipPlacement} arrow>
-          {/* span needed so tooltip works on disabled buttons */}
           <Box
             component="span"
             sx={{ display: fullWidth ? "block" : "inline-flex" }}

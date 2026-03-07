@@ -1,75 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Typography,
-  LinearProgress,
-  Button,
-  keyframes,
-  Stack,
-} from "@mui/material";
+import { Box, Typography, Button, keyframes, Stack } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { styled } from "@mui/material/styles";
 import { ColorPallete } from "../../config/colors";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// TYPES
-// ─────────────────────────────────────────────────────────────────────────────
+import { STEPS } from "../../assets/data";
 
 export interface StepperProps {
   activeStep: number;
   onBack: () => void;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// STEP CONFIG
-// ─────────────────────────────────────────────────────────────────────────────
-
-interface StepConfig {
-  label: string;
-  description: string;
-}
-
-export const STEPS: StepConfig[] = [
-  {
-    label: "Select Country",
-    description: "Where are you based?",
-  },
-  {
-    label: "Select Role",
-    description: "Tell us who you are.",
-  },
-  {
-    label: "Basic Information",
-    description: "Let's get to know you.",
-  },
-  {
-    label: "Create Password",
-    description: "Keep your account secure.",
-  },
-  {
-    label: "Verify Email",
-    description: "One last step to confirm.",
-  },
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ANIMATIONS
-// ─────────────────────────────────────────────────────────────────────────────
-
 const slideUp = keyframes`
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 `;
-
-const progressPulse = keyframes`
-  0%   { opacity: 1; }
-  50%  { opacity: 0.75; }
-  100% { opacity: 1; }
-`;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// STYLED
-// ─────────────────────────────────────────────────────────────────────────────
 
 const ProgressTrack = styled(Box)({
   width: "100%",
@@ -117,17 +61,10 @@ const BackBtn = styled(Button)({
   },
 });
 
-// ─────────────────────────────────────────────────────────────────────────────
-// COMPONENT
-// ─────────────────────────────────────────────────────────────────────────────
-
 const HorizontalStepper: React.FC<StepperProps> = ({ activeStep, onBack }) => {
   const total = STEPS.length;
   const current = STEPS[activeStep];
   const stepNumber = activeStep + 1;
-
-  // We animate the bar to full (100%) briefly, then the parent advances the step.
-  // This component simply reflects the fill based on activeStep.
   const [displayedWidth, setDisplayedWidth] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [key, setKey] = useState(0); // force re-anim on step change
@@ -163,7 +100,6 @@ const HorizontalStepper: React.FC<StepperProps> = ({ activeStep, onBack }) => {
           gap: "14px",
         }}
       >
-        {/* ── Row 1: back button + step counter ── */}
         <Box
           sx={{
             display: "flex",
@@ -180,7 +116,6 @@ const HorizontalStepper: React.FC<StepperProps> = ({ activeStep, onBack }) => {
               )}
             </Box>
 
-            {/* ── Row 2: step title + description ── */}
             <Box
               key={activeStep}
               sx={{
@@ -213,7 +148,6 @@ const HorizontalStepper: React.FC<StepperProps> = ({ activeStep, onBack }) => {
           </Stack>
 
           <Box>
-            {/* Counter */}
             <Typography
               sx={{
                 fontSize: 10,
@@ -229,7 +163,6 @@ const HorizontalStepper: React.FC<StepperProps> = ({ activeStep, onBack }) => {
           </Box>
         </Box>
 
-        {/* ── Row 3: progress bar ── */}
         <ProgressTrack>
           <ProgressFill
             key={key}

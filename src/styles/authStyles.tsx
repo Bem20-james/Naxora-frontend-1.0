@@ -1,6 +1,6 @@
 import { ColorPallete } from "../config/colors";
 
-const authStyles = () => ({
+export const authStyles = () => ({
   wrapper: {
     position: "static",
     display: "flex",

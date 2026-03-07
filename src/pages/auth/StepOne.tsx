@@ -9,10 +9,7 @@ import {
   InputLabel,
   type SelectChangeEvent,
 } from "@mui/material";
-
-/* ---------------------------------- */
-/* Types */
-/* ---------------------------------- */
+import { DUMMY_COUNTRIES } from "./data";
 
 export interface Country {
   id: string;
@@ -21,40 +18,11 @@ export interface Country {
 }
 
 export interface StepOneProps {
+  /** The currently selected country ID (controlled from parent) */
   countryId: string;
+  /** Fires whenever the user picks a new country */
   setSelectedCountry: (countryId: string) => void;
 }
-
-/* ---------------------------------- */
-/* Dummy Countries (Replace Later) */
-/* ---------------------------------- */
-
-const DUMMY_COUNTRIES: Country[] = [
-  {
-    id: "ng",
-    name: "Nigeria",
-    flag: "https://flagcdn.com/w40/ng.png",
-  },
-  {
-    id: "us",
-    name: "United States",
-    flag: "https://flagcdn.com/w40/us.png",
-  },
-  {
-    id: "gb",
-    name: "United Kingdom",
-    flag: "https://flagcdn.com/w40/gb.png",
-  },
-  {
-    id: "ca",
-    name: "Canada",
-    flag: "https://flagcdn.com/w40/ca.png",
-  },
-];
-
-/* ---------------------------------- */
-/* Component */
-/* ---------------------------------- */
 
 const StepOne: React.FC<StepOneProps> = ({ countryId, setSelectedCountry }) => {
   const handleChange = (event: SelectChangeEvent<string>) => {
@@ -62,21 +30,13 @@ const StepOne: React.FC<StepOneProps> = ({ countryId, setSelectedCountry }) => {
   };
 
   return (
-    <Box component="form" noValidate autoComplete="off" sx={{ width: "100%" }}>
-      <Typography
-        variant="h5"
-        sx={{
-          textAlign: "left",
-          fontWeight: 700,
-          py: 6,
-        }}
-      >
+    <Box component="div" sx={{ width: "100%" }}>
+      <Typography variant="h5" sx={{ fontWeight: 700, py: 4 }}>
         What country do you live in?
       </Typography>
 
       <FormControl fullWidth>
         <InputLabel id="country-select-label">Select country</InputLabel>
-
         <Select
           labelId="country-select-label"
           id="country-select"

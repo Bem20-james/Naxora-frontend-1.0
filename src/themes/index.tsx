@@ -14,13 +14,34 @@ const baseTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: ColorPallete.primary.default,
+      main: "#1D1E73",
+      light: "#2E3094",
+      dark: "#3F42B5",
+      contrastText: "#7D87FF",
     },
     secondary: {
-      main: ColorPallete.secondary.default,
+      dark: "#090E1A",
+      light: "#060912",
+      main: "#03050A",
+      contrastText: "#455469",
+    },
+    error: {
+      main: "#7F1D1D",
+      light: "#991B1B",
+      dark: "#B91C1C",
+      contrastText: "#F87171",
+    },
+    warning: {
+      main: "#713F12",
+      light: "#854D0E",
+      dark: "#A16207",
+      contrastText: "#FBBF24",
     },
     success: {
-      main: ColorPallete.success.default,
+      main: "#14532D",
+      light: "#166534",
+      dark: "#15803D",
+      contrastText: "#32D583",
     },
   },
   typography: {
@@ -87,23 +108,45 @@ const baseTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          color: "#FFFFFF",
           fontWeight: 500,
           textTransform: "none",
           borderRadius: 999,
           fontSize: "12px",
         },
-        sizeMedium: {
-          padding: "8px 40px",
-        },
+
         containedPrimary: {
-          backgroundColor: ColorPallete.secondary.default,
-        },
-        containedInfo: {
-          backgroundColor: "#FFF",
-          color: "#000",
+          background: "linear-gradient(135deg, #2196F3 0%, #1565C0 100%)",
+          color: "#FFFFFF",
+          boxShadow: "0 4px 16px rgba(33,150,243,0.25)",
           "&:hover": {
-            color: "red",
+            background: "linear-gradient(135deg, #42A5F5 0%, #1E88E5 100%)",
+            boxShadow: "0 6px 22px rgba(33,150,243,0.38)",
+            transform: "translateY(-1px)",
+          },
+          "&:active": { transform: "translateY(0px)" },
+        },
+
+        containedSecondary: {
+          background: "rgba(255,255,255,0.06)",
+          color: "#FFF",
+          border: "1px solid rgba(255,255,255,0.12)",
+
+          "&:hover": {
+            background: "rgba(255,255,255,0.10)",
+          },
+        },
+
+        containedError: {
+          background: "linear-gradient(135deg,#E53935 0%,#B71C1C 100%)",
+          color: "#FFF",
+        },
+
+        containedInfo: {
+          background: "linear-gradient(135deg,#2196F3 0%,#1565C0 100%)",
+          color: "#FFF",
+
+          "&:hover": {
+            background: "linear-gradient(135deg,#42A5F5 0%,#1E88E5 100%)",
           },
         },
       },

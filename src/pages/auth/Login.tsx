@@ -15,6 +15,7 @@ import { ColorPallete } from "../../config/colors";
 import { useNavigate } from "react-router-dom";
 import { CustomInput } from "../../components/dashboard";
 import { Email } from "@mui/icons-material";
+import { AppButton } from "../../components/dashboard";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -112,7 +113,7 @@ const LoginPage = () => {
 
             <Box sx={{ textAlign: "right", mb: "10px", mr: 1 }}>
               <Link
-                href="#"
+                href="/auth/forgot-password"
                 underline="none"
                 sx={{
                   color: ColorPallete.primary.main,
@@ -125,27 +126,15 @@ const LoginPage = () => {
               </Link>
             </Box>
 
-            <Button
+            <AppButton
+              shape="rounded"
               fullWidth
-              variant="contained"
-              sx={{
-                bgcolor: ColorPallete.primary.default,
-                color: "#fff",
-                fontWeight: 600,
-                fontSize: "15px",
-                py: "13px",
-                mb: "20px",
-                borderRadius: "10px",
-                textTransform: "none",
-                boxShadow: `0 4px 18px ${ColorPallete.primary.default}44`,
-                "&:hover": {
-                  bgcolor: ColorPallete.primary.main,
-                  boxShadow: `0 6px 24px ${ColorPallete.primary.main}60`,
-                },
-              }}
+              variant="primary"
+              sx={{ mt: "auto", pt: 3 }}
+              onClick={() => {}}
             >
               Continue
-            </Button>
+            </AppButton>
 
             <Divider
               sx={{
@@ -208,7 +197,6 @@ const LoginPage = () => {
               ))}
             </Stack>
 
-            {/* Sign-up link */}
             <Box sx={{ textAlign: "center" }}>
               <Typography
                 component="span"
@@ -217,7 +205,7 @@ const LoginPage = () => {
                 Need an account?{" "}
               </Typography>
               <Link
-                href="#"
+                href="/auth/onboarding"
                 underline="none"
                 sx={{
                   color: ColorPallete.primary.main,
@@ -231,7 +219,6 @@ const LoginPage = () => {
             </Box>
           </Box>
 
-          {/* Bottom spacer to balance the logo at top */}
           <Box sx={{ height: 56 }} />
         </Grid>
 

@@ -1,72 +1,23 @@
 import React, { useState } from "react";
 import { Box, Stack, Typography, keyframes } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import MovieFilterIcon from "@mui/icons-material/MovieFilter";
-import StorefrontIcon from "@mui/icons-material/Storefront";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { ColorPallete } from "../../config/colors";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// TYPES
-// ─────────────────────────────────────────────────────────────────────────────
+import { ROLE_CARDS } from "./data";
 
 export type UserRole = "creator" | "brand";
 
 export interface StepTwoProps {
-  /** Called when the user confirms a role selection */
+  /** Fires with the chosen role. Parent should advance the step. */
   onSelect: (role: UserRole) => void;
-  /** Pre-selected value (e.g. from parent state) */
+  /** Re-hydrate selection if user navigates back */
   defaultValue?: UserRole | null;
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// CARD DATA
-// ─────────────────────────────────────────────────────────────────────────────
-
-interface RoleCard {
-  role: UserRole;
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  cta: string;
-}
-
-const ROLE_CARDS: RoleCard[] = [
-  {
-    role: "creator",
-    icon: <MovieFilterIcon sx={{ fontSize: 22 }} />,
-    title: "I am a Creator",
-    description:
-      "I want to grow my audience, monetize my content, and collaborate with leading brands.",
-    cta: "Select Creator",
-  },
-  {
-    role: "brand",
-    icon: <StorefrontIcon sx={{ fontSize: 22 }} />,
-    title: "I am a Brand",
-    description:
-      "I want to discover authentic African talent and launch high-impact marketing campaigns.",
-    cta: "Select Brand",
-  },
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ANIMATIONS
-// ─────────────────────────────────────────────────────────────────────────────
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 `;
-
-const shimmer = keyframes`
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-`;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// STYLED
-// ─────────────────────────────────────────────────────────────────────────────
 
 const Card = styled(Box)<{ selected: boolean }>(({ selected }) => ({
   flex: 1,
@@ -84,14 +35,12 @@ const Card = styled(Box)<{ selected: boolean }>(({ selected }) => ({
   boxShadow: selected
     ? "0 0 0 1px rgba(245,197,24,0.2), 0 12px 40px rgba(245,197,24,0.12)"
     : "0 2px 16px rgba(0,0,0,0.3)",
-
   "&:hover": {
     border: "1.5px solid rgba(245,197,24,0.4)",
     background: "linear-gradient(145deg, #252308 0%, #1C1A04 100%)",
     transform: "translateY(-3px)",
     boxShadow: "0 16px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(245,197,24,0.15)",
   },
-
   "&::before": {
     content: '""',
     position: "absolute",
@@ -124,17 +73,9 @@ const CtaRow = styled(Box)<{ selected: boolean }>(({ selected }) => ({
   marginTop: "24px",
   color: selected ? "#F5C518" : "rgba(255,255,255,0.35)",
   transition: "all 0.25s ease",
-  "& svg": {
-    transition: "transform 0.25s ease",
-  },
-  "&:hover svg": {
-    transform: "translateX(4px)",
-  },
+  "& svg": { transition: "transform 0.25s ease" },
+  "&:hover svg": { transform: "translateX(4px)" },
 }));
-
-// ─────────────────────────────────────────────────────────────────────────────
-// COMPONENT
-// ─────────────────────────────────────────────────────────────────────────────
 
 const StepTwo: React.FC<StepTwoProps> = ({ onSelect, defaultValue = null }) => {
   const [hovered, setHovered] = useState<UserRole | null>(null);
@@ -142,7 +83,6 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSelect, defaultValue = null }) => {
 
   const handleSelect = (role: UserRole) => {
     setSelected(role);
-    // Small delay so the selected state is visible before advancing
     setTimeout(() => onSelect(role), 320);
   };
 
@@ -156,45 +96,31 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSelect, defaultValue = null }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        px: { xs: 3, sm: 5, md: 7 },
-        py: { xs: 3, md: 5 },
+        py: { xs: 3, md: 4 },
         animation: `${fadeUp} 0.45s ease both`,
       }}
     >
-      {/* ── Header ─────────────────────────────────────────────────────── */}
-      <Box
-        sx={{
-          textAlign: "center",
-          mb: { xs: 4, md: 2 },
-          animation: `${fadeUp} 0.45s ease 0.05s both`,
-        }}
-      >
+      <Box sx={{ textAlign: "center", mb: { xs: 3, md: 4 } }}>
         <Typography
           sx={{
-            fontSize: { xs: "24px", md: "30px" },
+            fontSize: { xs: "22px", md: "26px" },
             fontWeight: 700,
             color: ColorPallete.primary.main,
-            letterSpacing: "-0.5px",
-            lineHeight: 1.2,
-            mb: "10px",
+            letterSpacing: "-0.4px",
+            mb: "8px",
           }}
         >
           Let's get you started
         </Typography>
         <Typography
-          sx={{
-            fontSize: { xs: "12px", md: "14.5px" },
-            color: ColorPallete.secondary.light,
-            fontWeight: 400,
-          }}
+          sx={{ fontSize: "14px", color: ColorPallete.secondary.light }}
         >
           Choose the profile that best describes your goals on Nexora.
         </Typography>
       </Box>
 
-      {/* ── Cards ──────────────────────────────────────────────────────── */}
-      <Stack direction={{ xs: "column", md: "row" }} gap={2}>
-        {ROLE_CARDS.map((card, i) => (
+      <Stack direction={{ xs: "column", md: "row" }} gap={2} width="100%">
+        {ROLE_CARDS.map((card) => (
           <Card
             key={card.role}
             selected={selected === card.role}
@@ -202,7 +128,6 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSelect, defaultValue = null }) => {
             onMouseEnter={() => setHovered(card.role)}
             onMouseLeave={() => setHovered(null)}
           >
-            {/* Selected glow top-edge */}
             {selected === card.role && (
               <Box
                 sx={{
@@ -224,20 +149,16 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSelect, defaultValue = null }) => {
               sx={{
                 fontSize: { xs: "17px", md: "19px" },
                 fontWeight: 700,
-                color: "#FFFFFF",
-                letterSpacing: "-0.3px",
+                color: "#fff",
                 mb: "10px",
-                lineHeight: 1.2,
               }}
             >
               {card.title}
             </Typography>
-
             <Typography
               sx={{
                 fontSize: "13.5px",
                 color: "rgba(255,255,255,0.45)",
-                fontWeight: 400,
                 lineHeight: 1.7,
               }}
             >
@@ -246,12 +167,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ onSelect, defaultValue = null }) => {
 
             <CtaRow selected={isActive(card.role)}>
               <Typography
-                sx={{
-                  fontSize: "13.5px",
-                  fontWeight: 600,
-                  color: "inherit",
-                  letterSpacing: "0.1px",
-                }}
+                sx={{ fontSize: "13.5px", fontWeight: 600, color: "inherit" }}
               >
                 {card.cta}
               </Typography>

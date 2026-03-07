@@ -8,26 +8,14 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import LanguageIcon from "@mui/icons-material/Language";
 import ShareIcon from "@mui/icons-material/Share";
-
-const footerLinks: { heading: string; links: string[] }[] = [
-  {
-    heading: "PRODUCT",
-    links: ["Features", "Integrations", "Enterprise"],
-  },
-  {
-    heading: "SUPPORT",
-    links: ["Help Center", "Contact Us", "Security"],
-  },
-  {
-    heading: "LEGAL",
-    links: ["Privacy", "Terms", "Cookies"],
-  },
-];
+import { ColorPallete } from "../../config/colors";
+import { useNavigate } from "react-router-dom";
+import { footerLinks } from "./data";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <Box
       component="footer"
@@ -59,41 +47,30 @@ const Footer = () => {
           spacing={{ xs: 5, md: 4 }}
           sx={{ pb: { xs: 6, md: 7 } }}
         >
-          {/* Brand column */}
           <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-            {/* Logo */}
-            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+            <Box
+              onClick={() => navigate("/")}
+              sx={{
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 1.5,
+                ml: -7,
+                transition: "transform 0.2s ease",
+                "&:hover": { transform: "scale(1.02)" },
+              }}
+            >
               <Box
-                sx={{
-                  width: 34,
-                  height: 34,
-                  borderRadius: "9px",
-                  bgcolor: "#F5C518",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  mr: 1.25,
-                  boxShadow: "0 4px 14px rgba(245,197,24,0.30)",
-                }}
-              >
-                <TrendingUpIcon sx={{ color: "#1A1A0E", fontSize: 20 }} />
-              </Box>
-              <Typography
-                sx={{
-                  color: "#FFFFFF",
-                  fontWeight: 700,
-                  fontSize: "18px",
-                  letterSpacing: "-0.3px",
-                }}
-              >
-                AfriScale
-              </Typography>
+                component="img"
+                src="/logo/logo2.png"
+                sx={{ width: "100%", height: "100%" }}
+              />
             </Box>
 
             <Typography
               sx={{
                 color: "#6B7280",
-                fontSize: "13.5px",
+                fontSize: "13px",
                 lineHeight: 1.7,
                 maxWidth: "200px",
               }}
@@ -101,7 +78,6 @@ const Footer = () => {
               Empowering the next generation of African digital giants.
             </Typography>
 
-            {/* Optional social pills */}
             <Stack direction="row" spacing={1} sx={{ mt: 3 }}>
               {["X", "Li", "Gh"].map((s) => (
                 <Box
@@ -133,12 +109,11 @@ const Footer = () => {
             </Stack>
           </Grid>
 
-          {/* Link columns */}
           {footerLinks.map((col) => (
             <Grid size={{ xs: 6, sm: 3, md: 3 }} key={col.heading}>
               <Typography
                 sx={{
-                  color: "#F5C518",
+                  color: ColorPallete.warning.soft,
                   fontSize: "11px",
                   fontWeight: 700,
                   letterSpacing: "0.1em",
@@ -169,7 +144,7 @@ const Footer = () => {
                         left: 0,
                         width: 0,
                         height: "1px",
-                        bgcolor: "#F5C518",
+                        bgcolor: ColorPallete.warning.soft,
                         transition: "width 0.2s ease",
                       },
                       "&:hover::after": { width: "100%" },
@@ -183,7 +158,6 @@ const Footer = () => {
           ))}
         </Grid>
 
-        {/* Bottom bar */}
         <Divider sx={{ borderColor: "rgba(255,255,255,0.07)" }} />
         <Box
           sx={{
@@ -196,7 +170,7 @@ const Footer = () => {
           }}
         >
           <Typography sx={{ color: "#4B5563", fontSize: "12.5px" }}>
-            © 2024 AfriScale Technologies. All rights reserved.
+            © 2026 Nexora. All rights reserved.
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
@@ -205,7 +179,7 @@ const Footer = () => {
               sx={{
                 color: "#4B5563",
                 "&:hover": {
-                  color: "#F5C518",
+                  color: ColorPallete.warning.soft,
                   bgcolor: "rgba(245,197,24,0.08)",
                 },
                 transition: "all 0.2s",
@@ -219,7 +193,7 @@ const Footer = () => {
               sx={{
                 color: "#4B5563",
                 "&:hover": {
-                  color: "#F5C518",
+                  color: ColorPallete.warning.soft,
                   bgcolor: "rgba(245,197,24,0.08)",
                 },
                 transition: "all 0.2s",
