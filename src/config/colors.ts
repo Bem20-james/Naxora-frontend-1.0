@@ -44,5 +44,6 @@ export const ColorPallete = {
   default: {
     light: "#FFFFFF",
     dark: "#000000",
+    secondary: "#94A3B8",
   },
 };

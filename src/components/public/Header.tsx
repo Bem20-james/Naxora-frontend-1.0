@@ -11,13 +11,14 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Typography,
   Divider,
 } from "@mui/material";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { MenuRounded, CloseRounded } from "@mui/icons-material";
+import { MenuRounded } from "@mui/icons-material";
 import { FontFamily } from "../../config/fonts";
 import { menuItems } from "./data";
+import { ColorPallete } from "../../config/colors";
+import { AppButton } from "../dashboard";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -25,15 +26,7 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleToggle = () => setMobileOpen((prev) => !prev);
-
   const handleGetStarted = () => navigate("/login");
-
-  // Custom styles to match the image precisely
-  const COLORS = {
-    background: "#0B0E14", // Deep dark navy from image
-    accent: "#EAB308", // Vibrant yellow from image
-    textSecondary: "#94A3B8",
-  };
 
   return (
     <Box>
@@ -85,14 +78,16 @@ const Header = () => {
                     to={item.path}
                     sx={{
                       textDecoration: "none",
-                      color: isActive ? "#FFFFFF" : COLORS.textSecondary,
+                      color: isActive
+                        ? ColorPallete.default.light
+                        : ColorPallete.default.secondary,
                       fontWeight: 500,
-                      fontSize: "0.95rem",
+                      fontSize: "0.80rem",
                       fontFamily: FontFamily.primary,
                       transition: "all 0.3s ease",
                       position: "relative",
                       "&:hover": {
-                        color: "#FFFFFF",
+                        color: ColorPallete.default.light,
                       },
                       "&::after": isActive
                         ? {
@@ -102,7 +97,7 @@ const Header = () => {
                             left: "20%",
                             width: "60%",
                             height: "2px",
-                            backgroundColor: COLORS.accent,
+                            backgroundColor: ColorPallete.warning.default,
                             borderRadius: "10px",
                           }
                         : {},
@@ -114,32 +109,17 @@ const Header = () => {
               })}
             </Box>
 
-            {/* ACTION BUTTONS */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <Button
-                onClick={handleGetStarted}
-                variant="contained"
-                sx={{
-                  display: { xs: "none", sm: "flex" },
-                  backgroundColor: COLORS.accent,
-                  color: "#000000",
-                  textTransform: "none",
-                  fontWeight: 700,
-                  fontSize: "0.9rem",
-                  px: 4,
-                  py: 1.2,
-                  borderRadius: "50px", // Pill shape from image
-                  fontFamily: FontFamily.primary,
-                  boxShadow: `0 8px 20px ${COLORS.accent}33`,
-                  "&:hover": {
-                    backgroundColor: "#FFFFFF",
-                    boxShadow: `0 8px 25px ${COLORS.accent}55`,
-                    transform: "translateY(-1px)",
-                  },
-                }}
+              <AppButton
+                to={"/auth/onboarding"}
+                shape="rounded"
+                fullWidth
+                variant="primary"
+                sx={{ mt: "auto" }}
+                onClick={() => {}}
               >
                 Get Started
-              </Button>
+              </AppButton>
 
               {/* Mobile Menu Toggle */}
               <IconButton
@@ -158,7 +138,7 @@ const Header = () => {
         </Container>
       </AppBar>
 
-      {/* MOBILE DRAWER - Refactored for Professional Dark Look */}
+      {/* MOBILE DRAWER  */}
       <Drawer
         anchor="right"
         open={mobileOpen}
@@ -167,19 +147,28 @@ const Header = () => {
           sx: {
             width: "100%",
             maxWidth: 350,
-            backgroundColor: COLORS.background,
+            backgroundColor: ColorPallete.primary.default,
             color: "#FFFFFF",
             p: 3,
           },
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between", mb: 5 }}>
-          <Typography variant="h6" fontWeight={800}>
-            AfriScale
-          </Typography>
-          <IconButton onClick={handleToggle} sx={{ color: "#FFFFFF" }}>
-            <CloseRounded />
-          </IconButton>
+        <Box
+          onClick={() => navigate("/")}
+          sx={{
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: 1.5,
+            transition: "transform 0.2s ease",
+            "&:hover": { transform: "scale(1.02)" },
+          }}
+        >
+          <Box
+            component="img"
+            src="/logo/logo1.png"
+            sx={{ width: 150, height: 150 }}
+          />
         </Box>
 
         <List>
@@ -210,7 +199,7 @@ const Header = () => {
             variant="contained"
             onClick={handleGetStarted}
             sx={{
-              backgroundColor: COLORS.accent,
+              backgroundColor: ColorPallete.accent.default,
               color: "#000",
               py: 2,
               borderRadius: "50px",

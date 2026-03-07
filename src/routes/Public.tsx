@@ -4,7 +4,7 @@ import RegisterPage from "../pages/auth/Register";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import ResetPassword from "../pages/auth/ResetPassword";
 import PublicLayout from "../layouts/public";
-import { AboutUs, HomePage } from "../pages/public";
+import { AboutUs, HomePage, Pricing } from "../pages/public";
 
 const PublicRoutes = () => {
   return (
@@ -17,6 +17,7 @@ const PublicRoutes = () => {
 
         <Route index path="/" element={<HomePage />} />
         <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/pricing-and-plans" element={<Pricing />} />
       </Routes>
     </PublicLayout>
   );

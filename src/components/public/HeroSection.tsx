@@ -6,8 +6,9 @@ import {
   Stack,
   alpha,
 } from "@mui/material";
-import { PlayArrowRounded, RocketLaunchRounded } from "@mui/icons-material";
+import { RocketLaunchRounded } from "@mui/icons-material";
 import { FontFamily } from "../../config/fonts";
+import { AppButton } from "../dashboard";
 
 const HeroSection = () => {
   // Brand Colors based on your palette
@@ -22,7 +23,7 @@ const HeroSection = () => {
     <Box
       sx={{
         backgroundColor: COLORS.background,
-        minHeight: "90vh",
+        minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         position: "relative",
@@ -44,7 +45,6 @@ const HeroSection = () => {
     >
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
         <Stack spacing={4} alignItems="center" textAlign="center">
-          {/* 1. TOP BADGE */}
           <Box
             sx={{
               display: "flex",
@@ -99,7 +99,6 @@ const HeroSection = () => {
             </Box>
           </Typography>
 
-          {/* 3. SUBTEXT */}
           <Typography
             sx={{
               color: COLORS.textSecondary,
@@ -109,67 +108,29 @@ const HeroSection = () => {
               fontWeight: 400,
             }}
           >
-            AfriScale provides the world-class infrastructure needed to bridge
-            the gap between local talent and global markets. Empowering creators
-            and businesses with next-gen tools tailored for the continent's
-            unique digital landscape.
+            Nexora provides the world-class infrastructure needed to bridge the
+            gap between local talent and global markets. Empowering creators and
+            businesses with next-gen tools tailored for the continent's unique
+            digital landscape.
           </Typography>
 
-          {/* 4. CALL TO ACTION BUTTONS */}
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
             sx={{ mt: 2, width: { xs: "100%", sm: "auto" } }}
           >
-            <Button
-              variant="contained"
-              size="large"
+            <AppButton
+              to={"/auth/onboarding"}
+              shape="pill"
+              fullWidth
+              size="md"
+              variant="primary"
+              sx={{ mt: "auto" }}
+              onClick={() => {}}
               startIcon={<RocketLaunchRounded />}
-              sx={{
-                backgroundColor: COLORS.accent,
-                color: "#000",
-                px: 5,
-                py: 2,
-                borderRadius: "50px",
-                fontWeight: 800,
-                fontSize: "1rem",
-                textTransform: "none",
-                boxShadow: `0 10px 30px ${alpha(COLORS.accent, 0.4)}`,
-                "&:hover": {
-                  backgroundColor: "#FFFFFF",
-                  transform: "translateY(-3px)",
-                  boxShadow: `0 15px 35px ${alpha(COLORS.accent, 0.5)}`,
-                },
-                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
             >
               Start Scaling Now
-            </Button>
-
-            <Button
-              variant="outlined"
-              size="large"
-              startIcon={<PlayArrowRounded />}
-              sx={{
-                color: "#FFFFFF",
-                borderColor: alpha("#FFFFFF", 0.2),
-                px: 5,
-                py: 2,
-                borderRadius: "50px",
-                fontWeight: 700,
-                fontSize: "1rem",
-                textTransform: "none",
-                backgroundColor: alpha("#FFFFFF", 0.03),
-                "&:hover": {
-                  borderColor: "#FFFFFF",
-                  backgroundColor: alpha("#FFFFFF", 0.1),
-                  transform: "translateY(-3px)",
-                },
-                transition: "all 0.3s ease",
-              }}
-            >
-              View Demo
-            </Button>
+            </AppButton>
           </Stack>
         </Stack>
       </Container>
