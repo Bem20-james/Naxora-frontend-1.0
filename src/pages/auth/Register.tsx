@@ -304,7 +304,7 @@ const RegisterPage: React.FC = () => {
                   shape="rounded"
                   fullWidth
                   variant="primary"
-                  sx={{ mt: "auto", pt: 3 }}
+                  sx={{ mt: { lg: 3, sm: 5 } }}
                   onClick={ctaConfig.onClick}
                   disabled={isNextDisabled}
                   loading={loading}
@@ -312,6 +312,24 @@ const RegisterPage: React.FC = () => {
                   {ctaConfig.label}
                 </AppButton>
               )}
+              <Box sx={{ textAlign: "center", mt: 2 }}>
+                <Typography
+                  component="span"
+                  sx={{ color: "#AAAAAA", fontSize: "13.5px" }}
+                >
+                  Already have an account?{" "}
+                </Typography>
+                <Link
+                  to="/auth/login"
+                  style={{
+                    color: ColorPallete.primary.main,
+                    fontSize: "13.5px",
+                    fontWeight: 600,
+                  }}
+                >
+                  Sign In
+                </Link>
+              </Box>
             </Box>
 
             <Box

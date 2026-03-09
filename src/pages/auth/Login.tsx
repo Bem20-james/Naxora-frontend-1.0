@@ -130,7 +130,7 @@ const LoginPage = () => {
               shape="rounded"
               fullWidth
               variant="primary"
-              sx={{ mt: "auto", pt: 3 }}
+              sx={{ mt: "auto" }}
               onClick={() => {}}
             >
               Continue
@@ -239,7 +239,7 @@ const LoginPage = () => {
           >
             <Box
               component="img"
-              src="/auth2.png"
+              src="/auth/auth2.png"
               sx={{
                 width: "100%",
                 height: "100%",
