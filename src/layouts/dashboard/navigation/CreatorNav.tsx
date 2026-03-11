@@ -16,45 +16,8 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 export const CREATOR_NAV = [
   {
     label: "Dashboard",
-    path: "/dashboard",
+    path: "/dashboard/creator/overview",
     icon: GridViewIcon,
-    children: [],
-  },
-
-  {
-    label: "Users",
-    path: "/dashboard/admin/users",
-    icon: PeopleIcon,
-    children: [
-      {
-        label: "View All Users",
-        path: "/dashboard/admin/users/all",
-        icon: PersonSearchIcon,
-      },
-      {
-        label: "Suspend Accounts",
-        path: "/dashboard/admin/users/suspend",
-        icon: BlockIcon,
-      },
-      {
-        label: "Approve Verified Creators",
-        path: "/dashboard/admin/users/verify",
-        icon: VerifiedIcon,
-      },
-    ],
-  },
-
-  {
-    label: "Creators",
-    path: "/dashboard/admin/creators",
-    icon: PersonSearchIcon,
-    children: [],
-  },
-
-  {
-    label: "Brands",
-    path: "/dashboard/admin/brands",
-    icon: BusinessIcon,
     children: [],
   },
 

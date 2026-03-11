@@ -16,7 +16,7 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 export const ADMIN_NAV = [
   {
     label: "Dashboard",
-    path: "/dashboard",
+    path: "/dashboard/admin/overview",
     icon: GridViewIcon,
     children: [],
   },

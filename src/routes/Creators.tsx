@@ -4,7 +4,7 @@ import { CreatorOverview } from "../pages/creators";
 const CreatorRoutes = () => {
   return (
     <Routes>
-      <Route path="creator/overview" element={<CreatorOverview />} />
+      <Route path="/dashboard/creator/overview" element={<CreatorOverview />} />
     </Routes>
   );
 };

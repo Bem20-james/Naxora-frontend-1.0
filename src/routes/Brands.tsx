@@ -4,7 +4,7 @@ import { BrandOverview } from "../pages/brands";
 const BrandRoutes = () => {
   return (
     <Routes>
-      <Route path="expert/overview" element={<BrandOverview />} />
+      <Route path="/brand/overview" element={<BrandOverview />} />
     </Routes>
   );
 };

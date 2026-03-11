@@ -21,7 +21,8 @@ const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
     width: open ? drawerWidth : theme.spacing(9),
     boxSizing: "border-box",
-    backgroundImage: "linear-gradient(180deg, #060B26 0%, #1A1F37 100%)",
+    backgroundColor: "white",
+    boxShadow: "0 0 8px rgba(180, 201, 211, 0.6)",
     height: "98vh",
     borderRadius: "6px",
     p: 2,
@@ -89,11 +90,11 @@ const SideNav = ({ open }: { open: boolean }) => {
                     mx: 1,
                     borderRadius: 2,
                     backgroundColor: isActive
-                      ? ColorPallete.secondary.main
-                      : "transparent",
+                      ? ColorPallete.primary.main
+                      : "white",
                     transform: isActive ? "scale(1.02)" : "none",
                     "&:hover": {
-                      backgroundColor: ColorPallete.secondary.soft,
+                      backgroundColor: ColorPallete.primary.soft,
                       my: 1,
                       mx: 1,
                       transform: "scale(1.05)",
@@ -134,7 +135,7 @@ const SideNav = ({ open }: { open: boolean }) => {
                         fontWeight: isActive ? "bold" : "normal",
                         color: isActive
                           ? ColorPallete.default.light
-                          : ColorPallete.default.light,
+                          : ColorPallete.default.dark,
                       },
                     }}
                     sx={{

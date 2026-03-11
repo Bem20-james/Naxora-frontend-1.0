@@ -4,7 +4,6 @@ import {
   navHeight,
   layoutMargin,
 } from "../../assets/data";
-import { FontFamily } from "../../config/fonts";
 import { ColorPallete } from "../../config/colors";
 import type { CSSProperties } from "react";
 
@@ -26,7 +25,7 @@ export const styles = {
   wrap: {
     display: "flex",
     backgroundImage:
-      "linear-gradient(100deg, #22234B 20%, #0b2039ff 50%, #22234B 100%)",
+      "linear-gradient(100deg, #ffffff 20%, rgb(244, 235, 239) 50%, #eaeaf1 100%)",
     width: "100vw",
     minHeight: "100vh",
   },
@@ -43,9 +42,8 @@ export const styles = {
     ml: drawerWidth + "px",
   },
   navbar: {
-    //backgroundColor: ColorPallete.primary.disabled,
-    backgroundImage: "linear-gradient(180deg, #060B26 0%, #1A1F37 100%)",
-
+    backgroundColor: "white",
+    boxShadow: "0 0 8px rgba(180, 201, 211, 0.6)",
     borderRadius: "4px",
     position: "fixed",
     top: 0,
@@ -118,28 +116,35 @@ export const styles = {
     pr: layoutMargin + "-5px",
     border: "none",
   },
+  hideUsrn: {
+    display: "none",
+  },
   footer: {
     position: "static",
-    bottom: 11,
+    bottom: 5,
     left: `${drawerWidth + 3}`,
     width: "100%",
     borderRadius: "6px",
-    backgroundImage: "linear-gradient(150deg, #060B26 0%, #1A1F37 100%)",
+    backgroundColor: "white",
+    boxShadow: "0 0 8px rgba(180, 201, 211, 0.6)",
     padding: "10px 20px",
     marginBottom: "-15px",
-    boxShadow: `0 -1px 3px rgba(0, 0, 0, 0.1)`,
     transition: "width 0.3s",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    px: { xs: 2, lg: 5 },
+    py: 2,
+    flexShrink: 0,
   },
 
   footerOpen: {
-    marginRight: 1.3,
-    marginLeft: `${drawerWidth - 126}px`, // Adjusted to account for the Sidenav width
-    width: `calc(100% - ${drawerWidth - 140}px)`, // Adjusted width to account for Sidenav and margins
+    marginLeft: `${drawerWidth - 225}px`, // Adjusted to account for the Sidenav width
+    width: `calc(100% - ${drawerWidth - 250}px)`, // Adjusted width to account for Sidenav and margins
   },
   footerClosed: {
-    marginRight: 1.3,
-    marginLeft: `${drawerWidth - 210}px`, // Adjusted to account for the closed Sidenav width and margins
-    width: `calc(100% - ${drawerWidth - 224}px)`, // Adjusted width to account for closed Sidenav and margins
+    marginLeft: `${drawerWidth - 390}px`, // Adjusted to account for the closed Sidenav width and margins
+    width: `calc(100% - ${drawerWidth - 260}px)`, // Adjusted width to account for closed Sidenav and margins
   },
   headerScrolled: {
     backgroundColor: "rgba(39, 38, 70, 0.8) !important",

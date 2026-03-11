@@ -1,12 +1,12 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { Box, CssBaseline } from "@mui/material";
-import { ColorPallete } from "../../config/colors";
 import { styles } from "./styles";
 
 import NavBar from "./components/NavBar";
 import SideNav from "./components/SideNav";
 import MobileSideNav from "./components/MobileMenu";
+import Footer from "./components/Footer";
 
 const SIDE_NAV_WIDTH = 210;
 const LAYOUT_PADDING = 20;
@@ -80,6 +80,7 @@ function DashboardLayout({ children }: LayoutProps) {
           >
             {children}
           </Box>
+          <Footer />
         </Box>
       </Box>
     </>

@@ -12,7 +12,7 @@ import { ColorPallete } from "../../../config/colors";
 import { getNav } from "../../../utils/getNav";
 import { MOCK_USER } from "../../../utils/mockUser";
 
-function NavigationMenu() {
+const NavigationMenu = ({ open }: { open: boolean }) => {
   const location = useLocation();
 
   // temporary mock authentication
@@ -30,58 +30,70 @@ function NavigationMenu() {
 
           return (
             <ListItem key={index} disablePadding sx={{ display: "block" }}>
-              <Link to={item.path} style={{ textDecoration: "none" }}>
+              <Link
+                to={item.path}
+                style={{
+                  textDecoration: "none",
+                }}
+              >
                 <ListItemButton
                   sx={{
                     minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
                     my: 0.5,
                     mx: 1,
                     borderRadius: 2,
                     backgroundColor: isActive
-                      ? ColorPallete.primary.main + "20"
-                      : "transparent",
+                      ? ColorPallete.primary.main
+                      : "white",
                     transform: isActive ? "scale(1.02)" : "none",
-                    transition: "all 0.2s ease-in-out",
                     "&:hover": {
-                      backgroundColor: ColorPallete.primary.main + "15",
-                      transform: "scale(1.02)",
+                      backgroundColor: ColorPallete.primary.soft,
+                      my: 1,
+                      mx: 1,
+                      transform: "scale(1.05)",
                     },
                   }}
                 >
                   <ListItemIcon
                     sx={{
                       minWidth: 0,
-                      mr: 2,
+                      mr: open ? 2 : "auto",
                       justifyContent: "center",
+                      color: isActive
+                        ? ColorPallete.default.light
+                        : ColorPallete.primary.main,
                     }}
                   >
                     <Box
                       sx={{
                         backgroundColor: isActive
-                          ? ColorPallete.primary.main + "25"
-                          : "transparent",
+                          ? ColorPallete.primary.default
+                          : ColorPallete.primary.soft,
                         p: 1,
-                        borderRadius: "10px",
+                        borderRadius: 20,
                         display: "flex",
-                        alignItems: "center",
                         justifyContent: "center",
-                        transition: "all 0.2s ease-in-out",
+                        alignItems: "center",
+                        transition: "all 0.3s ease-in-out",
                       }}
                     >
                       {Icon && <Icon fontSize="small" />}
                     </Box>
                   </ListItemIcon>
-
                   <ListItemText
                     primary={item.label}
                     primaryTypographyProps={{
                       sx: {
-                        fontSize: "0.85rem",
-                        fontWeight: isActive ? 600 : 400,
+                        fontSize: ".8rem",
+                        fontWeight: isActive ? "bold" : "normal",
                         color: isActive
-                          ? ColorPallete.primary.main
+                          ? ColorPallete.default.light
                           : ColorPallete.default.dark,
                       },
+                    }}
+                    sx={{
+                      opacity: open ? 1 : 0,
                     }}
                   />
                 </ListItemButton>
@@ -92,6 +104,6 @@ function NavigationMenu() {
       </List>
     </Box>
   );
-}
+};
 
 export default NavigationMenu;

@@ -55,7 +55,7 @@ const NavBar = ({ open, toggleDrawer }: NavBarProps) => {
         <Typography
           variant="body2"
           sx={{ fontFamily: FontFamily.primary }}
-          color="#fff"
+          color="#000"
         >
           Hi Temitope,
         </Typography>
@@ -64,7 +64,8 @@ const NavBar = ({ open, toggleDrawer }: NavBarProps) => {
           variant="h6"
           sx={{
             textTransform: "uppercase",
-            color: "#FFFFFF",
+            color: "#000",
+            display: { xs: "none", md: "block" },
           }}
         >
           Welcome
@@ -90,7 +91,7 @@ const NavBar = ({ open, toggleDrawer }: NavBarProps) => {
             {"T"}
           </Avatar>
         </IconButton>
-        <IconButton sx={{ color: "#FFFFFF" }}>
+        <IconButton sx={{ color: ColorPallete.primary.main }}>
           <LogoutRounded />
         </IconButton>
       </Stack>

@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Drawer } from "@mui/material";
 import { Link } from "react-router-dom";
 import { sideNavPaperStyles } from "../data";
@@ -45,7 +44,7 @@ function MobileSideNav({
             <img src="/logo.png" style={styles.mobileLogo} alt="Bmg Logo" />
           </Link>
         </div>
-        <NavigationMenu />
+        <NavigationMenu open={open} />
       </Box>
     </Drawer>
   );

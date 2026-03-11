@@ -1,7 +1,7 @@
 export const ROLES = {
   ADMIN: 1,
   CREATORS: 3,
-  BRANDS: 4,
+  BRANDS: 2,
 };
 
 export const OTP_MODES = {

@@ -4,7 +4,7 @@ import { AdminOverview } from "../pages/dashboard";
 const AdminRoutes = () => {
   return (
     <Routes>
-      <Route path="administrator/overview" element={<AdminOverview />} />
+      <Route path="admin/overview" element={<AdminOverview />} />
     </Routes>
   );
 };
