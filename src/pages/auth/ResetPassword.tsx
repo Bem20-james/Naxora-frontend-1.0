@@ -9,54 +9,22 @@ import {
   FormHelperText,
   keyframes,
 } from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { ColorPallete } from "../../config/colors";
 import { useNavigate } from "react-router-dom";
-import { CustomInput } from "../../components/dashboard";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ANIMATIONS
-// ─────────────────────────────────────────────────────────────────────────────
+import { CustomInput, AppButton } from "../../components/dashboard";
+import {
+  SPECIAL_CHAR_REGEX,
+  UPPERCASE_REGEX,
+  NUMBER_REGEX,
+} from "../../assets/data";
+import { type Criterion, CriterionRow } from "../../components/public";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 `;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// HELPERS
-// ─────────────────────────────────────────────────────────────────────────────
-
-const SPECIAL_CHAR_REGEX = /[!@#$%^&*(),.?":{}|<>]/;
-const UPPERCASE_REGEX = /[A-Z]/;
-const NUMBER_REGEX = /[0-9]/;
-
-interface Criterion {
-  label: string;
-  met: boolean;
-}
-
-const CriterionRow = ({ label, met }: Criterion) => (
-  <Box sx={{ display: "flex", alignItems: "center", gap: "6px" }}>
-    {met ? (
-      <CheckCircleOutlineIcon sx={{ fontSize: 14, color: "#66BB6A" }} />
-    ) : (
-      <CancelOutlinedIcon sx={{ fontSize: 14, color: "#CCCCCC" }} />
-    )}
-    <Typography
-      sx={{
-        fontSize: "12px",
-        color: met ? "#66BB6A" : "#AAAAAA",
-        transition: "color 0.2s",
-      }}
-    >
-      {label}
-    </Typography>
-  </Box>
-);
 
 // Strength bar: 0–100
 const getStrength = (pwd: string): number => {
@@ -75,12 +43,7 @@ const strengthMeta = (score: number): { label: string; color: string } => {
   return { label: "Strong", color: "#66BB6A" };
 };
 
-export interface ResetPasswordProps {
-  /** Token from URL query param — pass via useSearchParams or router loader */
-  token?: string;
-}
-
-const ResetPassword = ({ token }: ResetPasswordProps) => {
+const ResetPassword = () => {
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
@@ -88,7 +51,6 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // ── Derived validation ──────────────────────────────────────────────────
   const criteria: Criterion[] = useMemo(
     () => [
       { label: "At least 8 characters", met: password.length >= 8 },
@@ -110,12 +72,11 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
   const strength = getStrength(password);
   const { label: strengthLabel, color: strengthColor } = strengthMeta(strength);
 
-  // ── Submit ──────────────────────────────────────────────────────────────
   const handleSubmit = async () => {
     if (!canSubmit) return;
     setLoading(true);
     try {
-      // ↓ Replace with your real API call
+      // Replace with real API call
       // await resetPassword({ token, password });
       await new Promise((r) => setTimeout(r, 900)); // mock
       setDone(true);
@@ -137,7 +98,6 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
       }}
     >
       <Grid container sx={{ height: "100%", flex: 1 }}>
-        {/* ── Left panel ──────────────────────────────────────────────── */}
         <Grid
           size={{ xs: 12, md: 5 }}
           sx={{
@@ -159,7 +119,6 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
               justifyContent: "center",
             }}
           >
-            {/* Logo */}
             <Box
               onClick={() => navigate("/")}
               sx={{
@@ -178,7 +137,6 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
               />
             </Box>
 
-            {/* Back link */}
             <Box
               onClick={() => navigate("/auth/login")}
               sx={{
@@ -199,9 +157,6 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
               </Typography>
             </Box>
 
-            {/* ═══════════════════════════════════
-                DEFAULT STATE — set new password
-            ═══════════════════════════════════ */}
             {!done ? (
               <Box sx={{ animation: `${fadeUp} 0.38s ease both` }}>
                 <Typography
@@ -238,7 +193,6 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
                     variant="outlined"
                   />
 
-                  {/* Strength bar */}
                   {password.length > 0 && (
                     <Box>
                       <Box
@@ -331,34 +285,17 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
                   )}
                 </Stack>
 
-                <Button
+                <AppButton
+                  shape="rounded"
                   fullWidth
-                  variant="contained"
-                  disabled={!canSubmit}
+                  variant="primary"
+                  sx={{ mt: { lg: 3, sm: 5 } }}
                   onClick={handleSubmit}
-                  sx={{
-                    bgcolor: ColorPallete.primary.default,
-                    color: "#fff",
-                    fontWeight: 600,
-                    fontSize: "15px",
-                    py: "13px",
-                    mb: "20px",
-                    borderRadius: "10px",
-                    textTransform: "none",
-                    boxShadow: `0 4px 18px ${ColorPallete.primary.default}44`,
-                    "&:hover": {
-                      bgcolor: ColorPallete.primary.main,
-                      boxShadow: `0 6px 24px ${ColorPallete.primary.main}60`,
-                    },
-                    "&.Mui-disabled": {
-                      bgcolor: "rgba(0,0,0,0.06)",
-                      color: "#AAAAAA",
-                      boxShadow: "none",
-                    },
-                  }}
+                  disabled={!canSubmit}
+                  loading={loading}
                 >
                   {loading ? "Resetting…" : "Reset Password"}
-                </Button>
+                </AppButton>
 
                 <Box sx={{ textAlign: "center" }}>
                   <Typography
@@ -382,9 +319,6 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
                 </Box>
               </Box>
             ) : (
-              /* ═══════════════════════════════════
-                  DONE STATE — success confirmation
-              ═══════════════════════════════════ */
               <Box
                 sx={{
                   display: "flex",
@@ -394,7 +328,6 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
                   animation: `${fadeUp} 0.4s ease both`,
                 }}
               >
-                {/* Success icon */}
                 <Box
                   sx={{
                     width: 72,
@@ -478,6 +411,7 @@ const ResetPassword = ({ token }: ResetPasswordProps) => {
             <Box
               component="img"
               src="/auth/auth3.jpg"
+              alt="reset-password-img"
               sx={{
                 width: "100%",
                 height: "100%",

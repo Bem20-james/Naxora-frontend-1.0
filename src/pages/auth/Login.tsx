@@ -138,7 +138,7 @@ const LoginPage = () => {
 
             <Divider
               sx={{
-                mb: "20px",
+                my: "10px",
                 "&::before, &::after": { borderColor: "#E6E6E6" },
                 color: "#BBBBBB",
                 fontSize: "13px",

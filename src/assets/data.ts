@@ -30,3 +30,7 @@ export const STEPS: StepConfig[] = [
     description: "One last step to confirm.",
   },
 ];
+
+export const SPECIAL_CHAR_REGEX = /[!@#$%^&*(),.?":{}|<>]/;
+export const UPPERCASE_REGEX = /[A-Z]/;
+export const NUMBER_REGEX = /[0-9]/;

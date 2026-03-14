@@ -206,9 +206,6 @@ const ForgotPassword = () => {
                 </Box>
               </Box>
             ) : (
-              /* ═══════════════════════════════════
-                  SENT STATE — confirmation
-              ═══════════════════════════════════ */
               <Box
                 sx={{
                   display: "flex",
@@ -218,7 +215,6 @@ const ForgotPassword = () => {
                   animation: `${fadeUp} 0.4s ease both`,
                 }}
               >
-                {/* Icon */}
                 <Box
                   sx={{
                     width: 72,
@@ -297,7 +293,6 @@ const ForgotPassword = () => {
           <Box sx={{ height: 56 }} />
         </Grid>
 
-        {/* ── Right image panel ────────────────────────────────────────── */}
         <Grid
           size={{ xs: 0, md: 7 }}
           sx={{ display: { xs: "none", md: "flex" } }}
@@ -314,6 +309,7 @@ const ForgotPassword = () => {
             <Box
               component="img"
               src="/auth/auth4.jpg"
+              alt="forgot-password-img"
               sx={{
                 width: "100%",
                 height: "100%",

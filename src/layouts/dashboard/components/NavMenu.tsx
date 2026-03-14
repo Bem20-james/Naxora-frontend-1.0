@@ -17,7 +17,6 @@ const NavigationMenu = ({ open }: { open: boolean }) => {
 
   // temporary mock authentication
   const user = MOCK_USER;
-
   const navItems = getNav({ role: user?.role });
 
   return (
@@ -25,7 +24,6 @@ const NavigationMenu = ({ open }: { open: boolean }) => {
       <List>
         {navItems.map((item, index) => {
           const isActive = location.pathname === item.path;
-
           const Icon = item.icon;
 
           return (
