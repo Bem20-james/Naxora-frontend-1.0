@@ -1,17 +1,10 @@
 import GridViewIcon from "@mui/icons-material/GridView";
-import PeopleIcon from "@mui/icons-material/People";
-import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-import VerifiedIcon from "@mui/icons-material/Verified";
-import BlockIcon from "@mui/icons-material/Block";
-import BusinessIcon from "@mui/icons-material/Business";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import GavelIcon from "@mui/icons-material/Gavel";
-import BarChartIcon from "@mui/icons-material/BarChart";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import MemoryIcon from "@mui/icons-material/Memory";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 export const CREATOR_NAV = [
   {
@@ -22,84 +15,44 @@ export const CREATOR_NAV = [
   },
 
   {
-    label: "Transactions",
-    path: "/dashboard/transactions",
+    label: "Campaigns",
+    path: "/dashboard/creator/campaigns",
     icon: ReceiptLongIcon,
     children: [],
   },
 
   {
-    label: "Disputes",
-    path: "/dashboard/admin/disputes",
+    label: "Projects",
+    path: "/dashboard/creator/projects",
     icon: GavelIcon,
-    children: [
-      {
-        label: "Override Disputes",
-        path: "/dashboard/admin/disputes/override",
-        icon: GavelIcon,
-      },
-    ],
+    children: [],
   },
 
   {
-    label: "Revenue",
-    path: "/dashboard/admin/revenue",
+    label: "Transactions",
+    path: "/dashboard/creator/transactions",
     icon: MonetizationOnIcon,
-    children: [
-      {
-        label: "Revenue Metrics",
-        path: "/dashboard/admin/revenue/metrics",
-        icon: BarChartIcon,
-      },
-    ],
+    children: [],
   },
 
   {
-    label: "Subscriptions",
-    path: "/dashboard/admin/subscriptions",
+    label: "Subscriptions & Billing",
+    path: "/dashboard/creator/subscriptions",
     icon: SubscriptionsIcon,
-    children: [
-      {
-        label: "Manage Plans",
-        path: "/dashboard/admin/subscriptions/plans",
-        icon: SubscriptionsIcon,
-      },
-    ],
+    children: [],
   },
 
   {
-    label: "Tracking",
-    path: "/dashboard/admin/tracking",
+    label: "Profile",
+    path: "/dashboard/creator/tracking",
     icon: ManageSearchIcon,
-    children: [
-      {
-        label: "Keyword Tracking Load",
-        path: "/dashboard/admin/tracking/keywords",
-        icon: ManageSearchIcon,
-      },
-      {
-        label: "Tracking Job Status",
-        path: "/dashboard/admin/tracking/jobs",
-        icon: MemoryIcon,
-      },
-    ],
+    children: [],
   },
 
   {
-    label: "System",
-    path: "/dashboard/admin/system",
+    label: "Settings",
+    path: "/dashboard/creator/system",
     icon: MemoryIcon,
-    children: [
-      {
-        label: "Analytics Engine Health",
-        path: "/dashboard/admin/system/analytics",
-        icon: BarChartIcon,
-      },
-      {
-        label: "System Errors",
-        path: "/dashboard/admin/system/errors",
-        icon: ErrorOutlineIcon,
-      },
-    ],
+    children: [],
   },
 ];

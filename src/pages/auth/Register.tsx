@@ -61,7 +61,6 @@ const RegisterPage: React.FC = () => {
     otpCode: "",
   });
 
-  // ── Controlled field updater ──────────────────────────────────────────────
   const handleFormChange = <K extends keyof RegisterFormValues>(
     field: K,
     value: RegisterFormValues[K],
@@ -69,7 +68,6 @@ const RegisterPage: React.FC = () => {
     setFormValues((prev) => ({ ...prev, [field]: value }));
   };
 
-  // ── Per-step validation ───────────────────────────────────────────────────
   useEffect(() => {
     const isDisabled = (): boolean => {
       switch (activeStep) {
@@ -127,6 +125,8 @@ const RegisterPage: React.FC = () => {
           1,
         ),
       };
+
+      console.log(payload);
 
       const cleanedPayload = removeKeys(payload, [
         "confirmPassword",

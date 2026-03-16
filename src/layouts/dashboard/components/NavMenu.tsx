@@ -43,10 +43,10 @@ const NavigationMenu = ({ open }: { open: boolean }) => {
                     borderRadius: 2,
                     backgroundColor: isActive
                       ? ColorPallete.primary.main
-                      : "white",
+                      : "#ffffff",
                     transform: isActive ? "scale(1.02)" : "none",
                     "&:hover": {
-                      backgroundColor: ColorPallete.primary.soft,
+                      backgroundColor: ColorPallete.primary.disabled,
                       my: 1,
                       mx: 1,
                       transform: "scale(1.05)",
@@ -60,7 +60,7 @@ const NavigationMenu = ({ open }: { open: boolean }) => {
                       justifyContent: "center",
                       color: isActive
                         ? ColorPallete.default.light
-                        : ColorPallete.primary.main,
+                        : ColorPallete.primary.light,
                     }}
                   >
                     <Box
@@ -88,6 +88,9 @@ const NavigationMenu = ({ open }: { open: boolean }) => {
                         color: isActive
                           ? ColorPallete.default.light
                           : ColorPallete.default.dark,
+                        "&:hover": {
+                          color: ColorPallete.default.dark,
+                        },
                       },
                     }}
                     sx={{

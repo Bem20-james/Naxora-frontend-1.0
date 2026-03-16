@@ -77,17 +77,17 @@ export const styles = {
   children: {
     transition: "margin-left 0.3s",
     height: "100%",
-    marginTop: -navHeight + 10 + "px",
+    marginTop: -navHeight + 40 + "px",
     width: "100vw",
     minHeight: "100vh",
   },
   openChildren: {
-    marginLeft: `${drawerWidth - 115}px`,
-    width: `calc(100% + -120px)`,
+    marginLeft: `${drawerWidth - 240}px`,
+    width: "100%",
   },
   closeChildren: {
-    marginLeft: `${drawerWidth - 200}px`,
-    width: `calc(100% + -32px)`,
+    marginLeft: `${drawerWidth - 240}px`,
+    width: "100%",
   },
 
   btnDef: {
