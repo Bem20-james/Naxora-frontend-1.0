@@ -1,24 +1,10 @@
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-  Stack,
-  alpha,
-} from "@mui/material";
+import { Box, Container, Typography, Stack, alpha } from "@mui/material";
 import { RocketLaunchRounded } from "@mui/icons-material";
 import { FontFamily } from "../../config/fonts";
 import { AppButton } from "../dashboard";
+import { COLORS } from "../../config/colors";
 
 const HeroSection = () => {
-  // Brand Colors based on your palette
-  const COLORS = {
-    background: "#0B0E14", // Deep Navy
-    accent: "#EAB308", // Yellow Base
-    textSecondary: "#94A3B8",
-    glow: "rgba(234, 179, 8, 0.15)",
-  };
-
   return (
     <Box
       sx={{
@@ -29,7 +15,6 @@ const HeroSection = () => {
         position: "relative",
         overflow: "hidden",
         pt: { xs: 12, md: 0 },
-        // Subtle radial gradient for that "premium" look
         "&::before": {
           content: '""',
           position: "absolute",
@@ -80,7 +65,6 @@ const HeroSection = () => {
             </Typography>
           </Box>
 
-          {/* 2. MAIN HEADING */}
           <Typography
             variant="h1"
             sx={{

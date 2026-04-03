@@ -1,9 +1,17 @@
-import React from "react";
-import { Container, Grid, Typography, Box } from "@mui/material";
-import PeopleIcon from "@mui/icons-material/People";
+import { Grid, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { StatCard } from "../../../components/dashboard";
-import { PaidOutlined } from "@mui/icons-material";
+import {
+  StatCard,
+  DataTable,
+  FollowerTrend,
+  CampaignInvite,
+} from "../../../components/dashboard";
+import {
+  MarkEmailUnread,
+  Paid,
+  Campaign,
+  ShowChart,
+} from "@mui/icons-material";
 
 const CreatorOverview = () => {
   const navigate = useNavigate();
@@ -13,51 +21,62 @@ const CreatorOverview = () => {
         <Grid container spacing={1}>
           <Grid size={{ xs: 12, md: 3 }} data-aos="fade-right">
             <StatCard
-              title="Total Users"
-              value="12,400"
+              title="Active Campaigns"
+              value="12"
               trend={8.3}
               subValue="↑ 940 new this week"
               trendLabel="vs last week"
-              icon={PeopleIcon}
+              icon={Campaign}
               color="blue"
               onClick={() => navigate("/users")}
             />
           </Grid>
           <Grid size={{ xs: 12, md: 3 }} data-aos="fade-right">
             <StatCard
-              title="Total Users"
-              value="12,400"
+              title="Campaign Invites"
+              value="10"
               trend={8.3}
               subValue="↑ 940 new this week"
               trendLabel="vs last week"
-              icon={PeopleIcon}
+              icon={MarkEmailUnread}
               color="blue"
               onClick={() => navigate("/users")}
             />
           </Grid>
           <Grid size={{ xs: 12, md: 3 }} data-aos="fade-right">
             <StatCard
-              title="Total Users"
-              value="12,400"
+              title="Total Earnings"
+              value="4,250"
               trend={8.3}
               subValue="↑ 940 new this week"
               trendLabel="vs last week"
-              icon={PeopleIcon}
+              icon={Paid}
               color="blue"
               onClick={() => navigate("/users")}
             />
           </Grid>
           <Grid size={{ xs: 12, md: 3 }} data-aos="fade-right">
             <StatCard
-              title="Total Users"
-              value="12,400"
+              title="Engagement Rate"
+              value="5.8"
               trend={8.3}
               subValue="↑ 940 new this week"
               trendLabel="vs last week"
-              icon={PeopleIcon}
+              icon={ShowChart}
               color="blue"
               onClick={() => navigate("/users")}
             />
+          </Grid>
+        </Grid>
+      </Box>
+
+      <Box mt={5}>
+        <Grid container spacing={1}>
+          <Grid size={{ xs: 12, md: 6 }} data-aos="fade-right">
+            <FollowerTrend />
+          </Grid>
+          <Grid size={{ xs: 12, md: 6 }} data-aos="fade-right">
+            <CampaignInvite />
           </Grid>
         </Grid>
       </Box>

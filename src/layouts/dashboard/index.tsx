@@ -1,89 +1,80 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { Box, CssBaseline } from "@mui/material";
-import { styles } from "./styles";
 
 import NavBar from "./components/NavBar";
-import SideNav from "./components/SideNav";
+import SideNav, {
+  DRAWER_WIDTH_OPEN,
+  DRAWER_WIDTH_CLOSED,
+} from "./components/SideNav";
 import MobileSideNav from "./components/MobileMenu";
 import Footer from "./components/Footer";
 
-const SIDE_NAV_WIDTH = 210;
-const LAYOUT_PADDING = 20;
-const NAV_HEIGHT = 80;
+const NAV_HEIGHT = 70;
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 function DashboardLayout({ children }: LayoutProps) {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
-
   const [open, setOpen] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+  const toggleDrawer = () => setOpen((prev) => !prev);
+  const toggleMobileDrawer = () => setMobileOpen((prev) => !prev);
+  const closeMobileDrawer = () => setMobileOpen(false);
 
-  const handleDrawerClose = () => {
-    setIsClosing(true);
-    setMobileOpen(false);
-  };
-
-  const handleSideNavTransitionEnd = () => {
-    setIsClosing(false);
-  };
+  const drawerWidth = open ? DRAWER_WIDTH_OPEN : DRAWER_WIDTH_CLOSED;
 
   return (
-    <>
-      <Box sx={styles.wrap}>
-        <CssBaseline />
-        <Box
-          component="nav"
-          sx={{
-            width: { sm: SIDE_NAV_WIDTH },
-            flexShrink: { sm: 0 },
-          }}
-          aria-label="side-navigation"
-        >
-          <MobileSideNav
-            open={mobileOpen}
-            width={SIDE_NAV_WIDTH}
-            onClose={handleDrawerClose}
-            onTransitionEnd={handleSideNavTransitionEnd}
-          />
+    <Box sx={{ display: "flex", minHeight: "100vh", background: "#f7f7fc" }}>
+      <CssBaseline />
 
-          <SideNav open={open} />
-        </Box>
+      <Box
+        component="nav"
+        sx={{
+          display: { xs: "none", sm: "block" },
+          flexShrink: 0,
+          width: drawerWidth,
+          transition: "width 0.3s ease",
+        }}
+      >
+        <SideNav open={open} />
+      </Box>
+
+      <MobileSideNav open={mobileOpen} onClose={closeMobileDrawer} />
+
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          minWidth: 0,
+          transition: "margin 0.3s ease",
+        }}
+      >
+        <NavBar
+          open={open}
+          toggleDrawer={toggleDrawer}
+          mobileToggle={toggleMobileDrawer}
+        />
 
         <Box
           component="main"
-          sx={[styles.contents, open ? styles.footerOpen : styles.footerClosed]}
+          sx={{
+            flex: 1,
+            mt: `${NAV_HEIGHT}px`,
+            px: { xs: 2, sm: 3 },
+            py: { xs: 2, sm: 3 },
+            boxSizing: "border-box",
+          }}
         >
-          <NavBar open={open} toggleDrawer={toggleDrawer} />
-
-          <Box
-            flex={1}
-            component="main"
-            sx={[
-              styles.children,
-              open ? styles.openChildren : styles.closeChildren,
-              {
-                boxSizing: "border-box",
-                pl: `${LAYOUT_PADDING + 0}px`,
-                pr: `${LAYOUT_PADDING}px`,
-                pt: `${NAV_HEIGHT + LAYOUT_PADDING}px`,
-                pb: `${LAYOUT_PADDING}px`,
-              },
-            ]}
-          >
-            {children}
-          </Box>
-          <Footer />
+          {children}
         </Box>
+
+        <Footer />
       </Box>
-    </>
+    </Box>
   );
 }
 

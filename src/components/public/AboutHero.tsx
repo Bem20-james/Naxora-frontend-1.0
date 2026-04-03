@@ -1,14 +1,8 @@
 import { Box, Container, Typography, alpha } from "@mui/material";
 import { FontFamily } from "../../config/fonts";
+import { COLORS } from "../../config/colors";
 
 const AboutHero = () => {
-  // Brand Colors from your palette
-  const COLORS = {
-    background: "#0B0E14", // Deep Navy
-    accent: "#EAB308", // Yellow Base
-    textSecondary: "#CBD5E1",
-  };
-
   return (
     <Box
       sx={{
@@ -22,7 +16,6 @@ const AboutHero = () => {
         backgroundColor: COLORS.background,
       }}
     >
-      {/* BACKGROUND IMAGE WITH ZOOM ANIMATION */}
       <Box
         sx={{
           position: "absolute",
@@ -31,7 +24,7 @@ const AboutHero = () => {
           right: 0,
           bottom: 0,
           zIndex: 0,
-          backgroundImage: `url('/about-hero.png')`, // Replace with your image path
+          backgroundImage: `url('/about-hero.png')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           "@keyframes softZoom": {
@@ -41,7 +34,6 @@ const AboutHero = () => {
         }}
       />
 
-      {/* MULTI-LAYERED OVERLAY FOR DEPTH */}
       <Box
         sx={{
           position: "absolute",
@@ -59,7 +51,6 @@ const AboutHero = () => {
 
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
         <Box sx={{ textAlign: "center", maxWidth: "900px", mx: "auto" }}>
-          {/* 1. IDENTITY TAG */}
           <Typography
             variant="overline"
             sx={{
@@ -75,7 +66,6 @@ const AboutHero = () => {
             OUR IDENTITY
           </Typography>
 
-          {/* 2. MAIN TITLE */}
           <Typography
             variant="h1"
             sx={{
@@ -111,7 +101,6 @@ const AboutHero = () => {
             </Box>
           </Typography>
 
-          {/* 3. SUBTEXT */}
           <Typography
             sx={{
               color: COLORS.textSecondary,
@@ -129,7 +118,6 @@ const AboutHero = () => {
         </Box>
       </Container>
 
-      {/* DECORATIVE BOTTOM BLUR */}
       <Box
         sx={{
           position: "absolute",

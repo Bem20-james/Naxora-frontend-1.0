@@ -1,6 +1,6 @@
 export const ColorPallete = {
   primary: {
-    main: "#1D1E73",
+    main: "#5054D6",
     light: "#2E3094",
     default: "#3F42B5",
     soft: "#7D87FF",
@@ -47,3 +47,27 @@ export const ColorPallete = {
     secondary: "#94A3B8",
   },
 };
+
+export const COLORS = {
+  background: "#0B0E14",
+  accent: "#EAB308",
+  textSecondary: "#94A3B8",
+  glow: "rgba(234, 179, 8, 0.15)",
+  gold: "#D9A520",
+  goldGlow: "rgba(217,165,32,0.35)",
+  goldFaint: "rgba(217,165,32,0.10)",
+  goldBorder: "rgba(217,165,32,0.20)",
+  bgDark: "#0F0E1C",
+  bgCard: "rgba(30,27,75,0.20)",
+  bgCardHover: "rgba(30,27,75,0.45)",
+  borderMuted: "rgba(49,46,129,0.55)",
+  indigoMuted: "#1E1B4B",
+  textPrimary: "#F1F5F9",
+  textMuted: "#64748B",
+  // Shared sx helpers
+  section: {
+    px: { xs: 3, md: 10 },
+    py: { xs: 8, md: 14 },
+    bgcolor: "#0F0E1C",
+  },
+} as const;

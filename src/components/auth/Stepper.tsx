@@ -67,12 +67,11 @@ const HorizontalStepper: React.FC<StepperProps> = ({ activeStep, onBack }) => {
   const stepNumber = activeStep + 1;
   const [displayedWidth, setDisplayedWidth] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [key, setKey] = useState(0); // force re-anim on step change
+  const [key, setKey] = useState(0);
 
   const targetWidth = (stepNumber / total) * 100;
 
   useEffect(() => {
-    // Trigger fill animation on every step change
     setAnimating(true);
     setKey((k) => k + 1);
 

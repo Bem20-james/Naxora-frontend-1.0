@@ -1,9 +1,10 @@
-import { HeroSection } from "../../../components/public";
+import { CapabilitiesSection, HeroSection } from "../../../components/public";
 
 const HomePage = () => {
   return (
     <div>
       <HeroSection />
+      <CapabilitiesSection />
     </div>
   );
 };

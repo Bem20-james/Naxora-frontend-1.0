@@ -26,7 +26,6 @@ const Footer = () => {
         pb: 0,
         position: "relative",
         overflow: "hidden",
-        // Subtle radial glow top-left
         "&::before": {
           content: '""',
           position: "absolute",
@@ -41,7 +40,6 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="lg">
-        {/* Main grid */}
         <Grid
           container
           spacing={{ xs: 5, md: 4 }}

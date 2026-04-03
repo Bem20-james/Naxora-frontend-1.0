@@ -1,0 +1,91 @@
+import type { Campaign } from "../../../components/dashboard/types";
+
+export const MOCK_CAMPAIGNS: Campaign[] = [
+  {
+    id: "c1",
+    brand: "Lush Botanics",
+    brandLogo: "LB",
+    brandColor: "#4ade80",
+    category: "Beauty & Skincare",
+    description:
+      "Promote our new botanical serum line targeting Gen Z skincare enthusiasts. We want authentic unboxing and 30-day skin transformation content.",
+    budget: 1200,
+    deadline: "2026-04-20",
+    deliverables: ["2× Instagram Reels", "1× TikTok video", "3× Stories"],
+    requirements: [
+      "Min. 10K followers",
+      "Skincare niche",
+      "Nigerian audience preferred",
+    ],
+    status: "pending",
+    platforms: ["Instagram", "TikTok"],
+  },
+  {
+    id: "c2",
+    brand: "NexTech Gear",
+    brandLogo: "NT",
+    brandColor: "#60a5fa",
+    category: "Electronics",
+    description:
+      "We're launching the NexPod Pro earbuds. Looking for tech-forward creators to review sound quality, build, and daily use experience.",
+    budget: 850,
+    deadline: "2026-04-30",
+    deliverables: ["1× YouTube review", "2× Instagram posts"],
+    requirements: ["Tech content creator", "Min. 5K subscribers"],
+    status: "pending",
+    platforms: ["YouTube", "Instagram"],
+  },
+  {
+    id: "c3",
+    brand: "FitFlow Apparel",
+    brandLogo: "FF",
+    brandColor: "#f97316",
+    category: "Health & Fitness",
+    description:
+      "Showcase our Spring activewear collection in workout sessions. We want real gym or outdoor fitness content with your honest review.",
+    budget: 2400,
+    deadline: "2026-05-10",
+    deliverables: ["3× Instagram Reels", "2× TikTok videos", "1× Blog post"],
+    requirements: [
+      "Fitness creator",
+      "Min. 15K followers",
+      "Lifestyle or fitness niche",
+    ],
+    status: "pending",
+    platforms: ["Instagram", "TikTok", "Blog"],
+  },
+  {
+    id: "c4",
+    brand: "Aura Coffee",
+    brandLogo: "AC",
+    brandColor: "#a78bfa",
+    category: "Food & Beverage",
+    description:
+      "Feature our premium cold brew in your morning routine or lifestyle content. Subtle integration preferred.",
+    budget: 600,
+    deadline: "2026-04-15",
+    deliverables: ["1× Instagram Reel", "2× Stories"],
+    requirements: ["Lifestyle creator", "Min. 8K followers"],
+    status: "accepted",
+    platforms: ["Instagram"],
+  },
+  {
+    id: "c5",
+    brand: "EduPath",
+    brandLogo: "EP",
+    brandColor: "#f43f5e",
+    category: "EdTech",
+    description:
+      "Promote our online learning platform targeting Nigerian university students. Honest walkthrough of the dashboard and course quality.",
+    budget: 950,
+    deadline: "2026-05-01",
+    deliverables: [
+      "1× YouTube video",
+      "2× Instagram posts",
+      "1× Twitter thread",
+    ],
+    requirements: ["Education or lifestyle niche", "Nigerian-based audience"],
+    status: "declined",
+    platforms: ["YouTube", "Instagram", "Twitter"],
+  },
+];

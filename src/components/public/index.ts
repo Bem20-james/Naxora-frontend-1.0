@@ -4,3 +4,4 @@ export { default as HeroSection } from "./HeroSection";
 export { default as AboutHero } from "./AboutHero";
 export { default as FaqSection } from "./FaqSection";
 export { CriterionRow, type Criterion } from "./CriteriaRow";
+export { default as CapabilitiesSection } from "./Capabilities";

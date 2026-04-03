@@ -1,18 +1,6 @@
-import { type Country } from "./StepOne";
 import { type UserRole } from "./StepTwo";
 import MovieFilterIcon from "@mui/icons-material/MovieFilter";
 import StorefrontIcon from "@mui/icons-material/Storefront";
-
-export const DUMMY_COUNTRIES: Country[] = [
-  { id: "ng", name: "Nigeria", flag: "https://flagcdn.com/w40/ng.png" },
-  { id: "gh", name: "Ghana", flag: "https://flagcdn.com/w40/gh.png" },
-  { id: "ke", name: "Kenya", flag: "https://flagcdn.com/w40/ke.png" },
-  { id: "za", name: "South Africa", flag: "https://flagcdn.com/w40/za.png" },
-  { id: "us", name: "United States", flag: "https://flagcdn.com/w40/us.png" },
-  { id: "gb", name: "United Kingdom", flag: "https://flagcdn.com/w40/gb.png" },
-  { id: "ca", name: "Canada", flag: "https://flagcdn.com/w40/ca.png" },
-];
-
 
 interface RoleCard {
   role: UserRole;

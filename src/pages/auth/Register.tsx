@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, Link as MUILink } from "@mui/material";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { showToast } from "../../utils/toast";
 import { ColorPallete } from "../../config/colors";
 import { HorizontalStepper } from "../../components/auth";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
+import StepThreeBrand from "./StepThreeBrand";
 import StepFour from "./StepFour";
 import OtpVerification from "./OtpVerification";
 import authStyles from "../../styles/authStyles";
@@ -14,26 +15,26 @@ import { isValidEmail, removeKeys } from "../../utils/functions";
 import { AppLoader, AppButton } from "../../components/dashboard";
 import OnboardingFlow from "../../components/auth/CoverSection";
 import type { UserRole } from "./StepTwo";
-import type { Gender } from "./StepThree";
+import { useRegister } from "../../hooks/useAuth";
 
 export interface RegisterFormValues {
   country_id: string;
-
   role: UserRole | "";
-
-  firstname: string;
-  lastname: string;
+  // creator
+  name: string;
+  username: string;
+  // brand
+  brand_name: string;
+  contact_person: string;
+  contact_person_number: string;
+  // shared
   email: string;
-  phoneNumber: string;
   countryCode: string;
-  gender: Gender;
-  referral: string;
-
   password: string;
   confirmPassword: string;
-
   otpCode: string;
 }
+
 const TOTAL_STEPS = 5;
 
 const RegisterPage: React.FC = () => {
@@ -43,28 +44,48 @@ const RegisterPage: React.FC = () => {
   const [otpError, setOtpError] = useState<boolean>(false);
   const [isNextDisabled, setIsNextDisabled] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
-  const [otpMethod, setOtpMethod] = useState<"email" | "sms" | null>("email");
+  const [otpMethod, setOtpMethod] = useState<"email" | "sms">("email");
   const [otpTimer, setOtpTimer] = useState<number>(60);
+
+  /**
+   * selectedRole is its own dedicated state — NOT derived from formValues.role.
+   *
+   * WHY THIS MATTERS:
+   * handleRoleSelect calls setFormValues AND setActiveStep in the same tick.
+   * React batches these updates, so when step 2 first renders, formValues.role
+   * is still "" (stale closure). A separate state piece is set synchronously
+   * first, so isBrand / isCreator are always correct on step 2's first render.
+   */
+  const [selectedRole, setSelectedRole] = useState<UserRole | null>(null);
+
+  const isBrand = selectedRole === "brand";
+  const isCreator = selectedRole === "creator";
+
+  const { mutateAsync } = useRegister();
 
   const [formValues, setFormValues] = useState<RegisterFormValues>({
     country_id: "",
     role: "",
-    firstname: "",
-    lastname: "",
     email: "",
-    phoneNumber: "",
-    countryCode: "",
-    gender: "",
-    referral: "",
     password: "",
     confirmPassword: "",
     otpCode: "",
+    name: "",
+    username: "",
+    countryCode: "",
+    brand_name: "",
+    contact_person: "",
+    contact_person_number: "",
   });
 
   const handleFormChange = <K extends keyof RegisterFormValues>(
     field: K,
     value: RegisterFormValues[K],
   ) => {
+    setFormValues((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleFieldChange = (field: string, value: string | boolean) => {
     setFormValues((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -75,15 +96,20 @@ const RegisterPage: React.FC = () => {
           return !formValues.country_id;
 
         case 1:
-          // Role step advances automatically on card click — always enabled
-          return !formValues.role;
+          return !selectedRole;
 
         case 2:
+          if (isBrand) {
+            return !(
+              formValues.brand_name.trim() &&
+              formValues.contact_person.trim() &&
+              /^\d{10,14}$/.test(formValues.contact_person_number) &&
+              isValidEmail(formValues.email)
+            );
+          }
           return !(
-            formValues.firstname &&
-            formValues.lastname &&
-            formValues.gender &&
-            /^\d{10}$/.test(formValues.phoneNumber) &&
+            formValues.name.trim() &&
+            formValues.username.trim() &&
             isValidEmail(formValues.email)
           );
 
@@ -103,49 +129,65 @@ const RegisterPage: React.FC = () => {
     };
 
     setIsNextDisabled(isDisabled());
-  }, [activeStep, formValues]);
+  }, [activeStep, formValues, selectedRole, isBrand]);
 
   const handleNext = () =>
     setActiveStep((prev) => Math.min(prev + 1, TOTAL_STEPS - 1));
 
   const handleBack = () => setActiveStep((prev) => Math.max(prev - 1, 0));
 
-  // Step 2 (Role) auto-advances on card select
+  /**
+   * Sets selectedRole FIRST (synchronous — gates step 2 render immediately),
+   * then writes to formValues.role (for payload), then advances the step.
+   */
   const handleRoleSelect = (role: UserRole) => {
+    setSelectedRole(role);
     handleFormChange("role", role);
     setTimeout(handleNext, 320);
+  };
+
+  const buildPayload = () => {
+    if (isBrand) {
+      return {
+        email: formValues.email,
+        password: formValues.password,
+        role: "brand" as const,
+        username: formValues.username,
+        brand_name: formValues.brand_name,
+        contact_person: formValues.contact_person,
+        contact_person_number: formValues.contact_person_number,
+        country_id: formValues.country_id,
+      };
+    }
+
+    const base = {
+      ...formValues,
+      role: "creator" as const,
+    };
+
+    return removeKeys(base, [
+      "otpCode",
+      "countryCode",
+      "phoneNumber",
+      "brand_name",
+      "contact_person",
+      "contact_person_number",
+      "country",
+    ]);
   };
 
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const payload = {
-        ...formValues,
-        phone: `${formValues.countryCode}${formValues.phoneNumber}`.substring(
-          1,
-        ),
-      };
+      const payload = buildPayload();
+      console.log("sending payload:", payload);
+      await mutateAsync(payload);
 
-      console.log(payload);
-
-      const cleanedPayload = removeKeys(payload, [
-        "confirmPassword",
-        "otpCode",
-        "countryCode",
-        "phoneNumber",
-        !formValues.referral ? "referral" : "",
-      ]);
-
-      cleanedPayload.country_id = String(cleanedPayload.country_id);
-
-      // const response = await registerUser(cleanedPayload);
-      // if (response?.success) handleNext();
-
-      console.log("Submitting payload →", cleanedPayload);
-      handleNext(); // advance to OTP step
+      console.log("Submitting →", payload);
+      handleNext();
     } catch (error) {
       console.error("Registration failed:", error);
-      toast.error("Registration failed. Please try again.");
+      showToast.error("Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -154,12 +196,11 @@ const RegisterPage: React.FC = () => {
   const handleOtpVerify = async () => {
     setLoading(true);
     try {
-      // const response = await verifyOtp({ email: formValues.email, otp: formValues.otpCode });
-      // if (!response?.success) { setOtpError(true); return; }
-      toast.success("Account created successfully!");
+      // await verifyOtp({ email: formValues.email, otp: formValues.otpCode });
+      showToast.success("Account created successfully!");
     } catch {
       setOtpError(true);
-      toast.error("Invalid OTP. Please try again.");
+      showToast.error("Invalid OTP. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -168,7 +209,7 @@ const RegisterPage: React.FC = () => {
   const getCtaConfig = (): { label: string; onClick: () => void } | null => {
     switch (activeStep) {
       case 1:
-        return null; // role step auto-advances, no button needed
+        return null;
       case 3:
         return { label: "Create Account", onClick: handleSubmit };
       case 4:
@@ -198,11 +239,7 @@ const RegisterPage: React.FC = () => {
 
         <Grid
           size={{ xs: 12, md: 5, lg: 5 }}
-          sx={{
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-          }}
+          sx={{ height: "100vh", display: "flex", flexDirection: "column" }}
         >
           <Box
             sx={{
@@ -242,6 +279,7 @@ const RegisterPage: React.FC = () => {
                 flexDirection: "column",
               }}
             >
+              {/* Step 0 — Country */}
               {activeStep === 0 && (
                 <StepOne
                   countryId={formValues.country_id}
@@ -251,27 +289,37 @@ const RegisterPage: React.FC = () => {
                 />
               )}
 
+              {/* Step 1 — Role selection */}
               {activeStep === 1 && (
                 <StepTwo
                   onSelect={handleRoleSelect}
-                  defaultValue={formValues.role as UserRole | null}
+                  defaultValue={selectedRole}
                 />
               )}
 
-              {activeStep === 2 && (
+              {/* Step 2 — Creator info */}
+              {activeStep === 2 && isCreator && (
                 <StepThree
-                  firstname={formValues.firstname}
-                  lastname={formValues.lastname}
+                  name={formValues.name}
+                  username={formValues.username}
                   email={formValues.email}
-                  phoneNumber={formValues.phoneNumber}
-                  gender={formValues.gender}
-                  referral={formValues.referral}
-                  setFormValues={(field, value) =>
-                    handleFormChange(field as keyof RegisterFormValues, value)
-                  }
+                  setFormValues={handleFieldChange}
                 />
               )}
 
+              {/* Step 2 — Brand info */}
+              {activeStep === 2 && isBrand && (
+                <StepThreeBrand
+                  brand_name={formValues.brand_name}
+                  contact_person={formValues.contact_person}
+                  contact_person_number={formValues.contact_person_number}
+                  email={formValues.email}
+                  username={formValues.username}
+                  setFormValues={handleFieldChange}
+                />
+              )}
+
+              {/* Step 3 — Password */}
               {activeStep === 3 && (
                 <StepFour
                   password={formValues.password}
@@ -283,10 +331,12 @@ const RegisterPage: React.FC = () => {
                 />
               )}
 
+              {/* Step 4 — OTP */}
               {activeStep === 4 && (
                 <OtpVerification
                   title="Verify your email address"
                   otpCode={formValues.otpCode}
+                  destination={formValues.email}
                   handleOtpInput={(value) => handleFormChange("otpCode", value)}
                   handleResendOtp={() => {}}
                   otpError={otpError}
@@ -295,7 +345,6 @@ const RegisterPage: React.FC = () => {
                   otpMethod={otpMethod}
                   setOtpMethod={setOtpMethod}
                   otpType="register"
-                  _email={true}
                 />
               )}
 
@@ -304,7 +353,7 @@ const RegisterPage: React.FC = () => {
                   shape="rounded"
                   fullWidth
                   variant="primary"
-                  sx={{ mt: { lg: 3, sm: 5 } }}
+                  sx={{ mt: "auto" }}
                   onClick={ctaConfig.onClick}
                   disabled={isNextDisabled}
                   loading={loading}
@@ -312,24 +361,27 @@ const RegisterPage: React.FC = () => {
                   {ctaConfig.label}
                 </AppButton>
               )}
-              <Box sx={{ textAlign: "center", mt: 2 }}>
-                <Typography
-                  component="span"
-                  sx={{ color: "#AAAAAA", fontSize: "13.5px" }}
-                >
-                  Already have an account?{" "}
-                </Typography>
-                <Link
-                  to="/auth/login"
-                  style={{
-                    color: ColorPallete.primary.main,
-                    fontSize: "13.5px",
-                    fontWeight: 600,
-                  }}
-                >
-                  Sign In
-                </Link>
-              </Box>
+            </Box>
+
+            <Box sx={{ textAlign: "center" }}>
+              <Typography
+                component="span"
+                sx={{ color: "#AAAAAA", fontSize: "13.5px" }}
+              >
+                I have an account?{" "}
+              </Typography>
+              <MUILink
+                href="/auth/login"
+                underline="none"
+                sx={{
+                  color: ColorPallete.primary.main,
+                  fontSize: "13.5px",
+                  fontWeight: 600,
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                Sign In
+              </MUILink>
             </Box>
 
             <Box

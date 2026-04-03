@@ -5,7 +5,7 @@ import { ColorPallete } from "../../config/colors";
 
 interface InputProps {
   label?: string;
-  type?: "text" | "email" | "password" | "search" | "number" | "date";
+  type?: "text" | "email" | "password" | "search" | "number" | "date" | "tel";
   variant?: "outlined" | "filled";
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -54,7 +54,7 @@ const StyledTextField = styled(TextField)<{
     },
 
     "&:before, &:after": {
-      display: "none", // remove default underline
+      display: "none",
     },
   },
 
@@ -63,7 +63,7 @@ const StyledTextField = styled(TextField)<{
   },
 }));
 
-export default function CustomInput({
+const CustomInput = ({
   label,
   type = "text",
   variant = "outlined",
@@ -81,12 +81,11 @@ export default function CustomInput({
   fullWidth = true,
   color,
   disabled = false,
-}: InputProps) {
+}: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const isPassword = type === "password";
   const isSearch = type === "search";
-  const isNumber = type === "number";
 
   return (
     <StyledTextField
@@ -144,4 +143,6 @@ export default function CustomInput({
       }}
     />
   );
-}
+};
+
+export default CustomInput;

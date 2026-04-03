@@ -161,7 +161,6 @@ const OtpVerification: React.FC<OtpProps> = ({
         animation: `${fadeUp} 0.4s ease both`,
       }}
     >
-      {/* ── Heading ─────────────────────────────────────────────────────── */}
       <Box sx={{ mb: 4, pt: 3 }}>
         <Typography
           sx={{
@@ -184,7 +183,6 @@ const OtpVerification: React.FC<OtpProps> = ({
         )}
       </Box>
 
-      {/* ── Method switcher (hidden for register flow) ───────────────────── */}
       {availableMethods.length > 1 && (
         <Box sx={{ mb: 3 }}>
           <Typography
@@ -217,7 +215,6 @@ const OtpVerification: React.FC<OtpProps> = ({
         </Box>
       )}
 
-      {/* ── OTP boxes ───────────────────────────────────────────────────── */}
       <Box
         sx={{
           animation: hasError ? `${shake} 0.45s ease` : "none",
@@ -257,7 +254,6 @@ const OtpVerification: React.FC<OtpProps> = ({
         />
       </Box>
 
-      {/* ── Error message ────────────────────────────────────────────────── */}
       {hasError && (
         <Typography
           sx={{
@@ -274,7 +270,6 @@ const OtpVerification: React.FC<OtpProps> = ({
         </Typography>
       )}
 
-      {/* ── Success hint when complete ───────────────────────────────────── */}
       {isComplete && !hasError && (
         <Box
           sx={{
@@ -295,10 +290,8 @@ const OtpVerification: React.FC<OtpProps> = ({
         </Box>
       )}
 
-      {/* ── Timer + resend ───────────────────────────────────────────────── */}
       {otpMethod !== "authenticator" && (
         <Box sx={{ mb: 4 }}>
-          {/* Timer progress track */}
           <Box
             sx={{
               height: 2,

@@ -5,7 +5,6 @@ import { ROLES } from "../config/constants";
 
 export const getNav = ({ role }: { role: any }) => {
   if (!role) return [];
-  console.log("Getting nav for role:", role);
 
   if (role === ROLES.ADMIN) {
     return ADMIN_NAV;

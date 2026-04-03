@@ -1,10 +1,15 @@
 import GridViewIcon from "@mui/icons-material/GridView";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
-import ManageSearchIcon from "@mui/icons-material/ManageSearch";
-import MemoryIcon from "@mui/icons-material/Memory";
+import {
+  Analytics,
+  Campaign,
+  ChatBubbleOutline,
+  Inbox,
+  Notifications,
+  Settings,
+  Storefront,
+} from "@mui/icons-material";
 
 export const BRAND_NAV = [
   {
@@ -13,63 +18,45 @@ export const BRAND_NAV = [
     icon: GridViewIcon,
     children: [],
   },
+
   {
     label: "Campaigns",
     path: "/dashboard/brand/campaigns",
-    icon: GridViewIcon,
+    icon: Campaign,
     children: [],
+  },
+
+  {
+    label: "Analytics",
+    path: "/dashboard/brand/analytics",
+    icon: Analytics,
   },
 
   {
     label: "Marketplace",
-    path: "/dashboard/brand/marketplace",
-    icon: ReceiptLongIcon,
+    path: "/dashboard/brand/creators-marketplace",
+    icon: Storefront,
     children: [],
   },
 
   {
-    label: "Revenue",
-    path: "/dashboard/brand/revenue",
-    icon: MonetizationOnIcon,
-    children: [
-      {
-        label: "Revenue Metrics",
-        path: "/dashboard/brand/revenue/metrics",
-        icon: BarChartIcon,
-      },
-    ],
+    label: "Applications",
+    path: "/dashboard/brand/applications",
+    icon: Inbox,
+  },
+
+  {
+    label: "Messaging",
+    path: "/dashboard/brand/messages",
+    icon: ChatBubbleOutline,
   },
 
   {
     label: "Subscriptions",
     path: "/dashboard/brand/subscriptions",
     icon: SubscriptionsIcon,
-    children: [
-      {
-        label: "Manage Plans",
-        path: "/dashboard/brand/billings",
-        icon: SubscriptionsIcon,
-      },
-    ],
   },
 
-  {
-    label: "Tracking",
-    path: "/dashboard/brand/tracking",
-    icon: ManageSearchIcon,
-    children: [
-      {
-        label: "Keyword Tracking Load",
-        path: "/dashboard/brand/tracking/keywords",
-        icon: ManageSearchIcon,
-      },
-      {
-        label: "Tracking Job Status",
-        path: "/dashboard/brand/tracking/jobs",
-        icon: MemoryIcon,
-      },
-    ],
-  },
   {
     label: "Transactions",
     path: "/dashboard/brand/transactions",
@@ -79,14 +66,14 @@ export const BRAND_NAV = [
   {
     label: "Notifications",
     path: "/dashboard/brand/notifications",
-    icon: ReceiptLongIcon,
+    icon: Notifications,
     children: [],
   },
 
   {
     label: "Settings",
     path: "/dashboard/brand/settings",
-    icon: MemoryIcon,
+    icon: Settings,
     children: [],
   },
 ];

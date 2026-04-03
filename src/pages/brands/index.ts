@@ -1,1 +1,13 @@
 export { default as BrandOverview } from "./overview";
+export { default as BrandCampaign } from "./Campaigns";
+export { default as Applications } from "./Applications";
+export { default as Analytics } from "./Analytics";
+export { default as Creators } from "./Creators";
+export { default as Subscriptions } from "./Subscriptions";
+export { default as CreateCampaignPage } from "./Campaigns/CreateCampaign";
+export { default as CampaignDetails } from "./Campaigns/CampaignDetails";
+export { default as BrandProfilePage } from "./Profile";
+export { default as BrandSettingsPage } from "./Settings";
+export { default as NotificationsPage } from "./Notifications";
+export { default as TransactionsPage } from "./Transactions";
+export { default as Messaging } from "./Messaging";

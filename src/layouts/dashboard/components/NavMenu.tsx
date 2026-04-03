@@ -10,13 +10,12 @@ import {
 import { Link } from "react-router-dom";
 import { ColorPallete } from "../../../config/colors";
 import { getNav } from "../../../utils/getNav";
-import { MOCK_USER } from "../../../utils/mockUser";
+import { useSelector } from "react-redux";
+import { type RootState } from "../../../store";
 
 const NavigationMenu = ({ open }: { open: boolean }) => {
   const location = useLocation();
-
-  // temporary mock authentication
-  const user = MOCK_USER;
+  const user = useSelector((state: RootState) => state.auth.user);
   const navItems = getNav({ role: user?.role });
 
   return (
@@ -60,14 +59,14 @@ const NavigationMenu = ({ open }: { open: boolean }) => {
                       justifyContent: "center",
                       color: isActive
                         ? ColorPallete.default.light
-                        : ColorPallete.primary.light,
+                        : ColorPallete.default.light,
                     }}
                   >
                     <Box
                       sx={{
                         backgroundColor: isActive
                           ? ColorPallete.primary.default
-                          : ColorPallete.primary.soft,
+                          : ColorPallete.primary.default,
                         p: 1,
                         borderRadius: 20,
                         display: "flex",

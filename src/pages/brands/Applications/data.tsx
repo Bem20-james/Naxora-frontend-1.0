@@ -1,0 +1,95 @@
+import type { Application } from "../../../components/dashboard/types";
+
+export const MOCK_APPLICATIONS: Application[] = [
+  {
+    id: "a1",
+    campaignId: "bc1",
+    campaignTitle: "Botanical Serum Launch",
+    creatorId: "cr1",
+    creatorName: "Temitope Adeyemi",
+    creatorAvatar: "TA",
+    creatorColor: "#a78bfa",
+    niche: ["Beauty", "Lifestyle"],
+    platforms: [
+      { name: "Instagram", handle: "@temi.creates", followers: 24500 },
+      { name: "TikTok", handle: "@temitope.adeyemi", followers: 18200 },
+    ],
+    pitch:
+      "I've been a skincare enthusiast for 5 years and my audience trusts my honest reviews. I'd love to document a genuine 30-day transformation with your serum.",
+    appliedDate: "2026-03-05",
+    status: "approved",
+    proposedRate: 1200,
+  },
+  {
+    id: "a2",
+    campaignId: "bc1",
+    campaignTitle: "Botanical Serum Launch",
+    creatorId: "cr2",
+    creatorName: "Adaeze Obi",
+    creatorAvatar: "AO",
+    creatorColor: "#f97316",
+    niche: ["Skincare", "Wellness"],
+    platforms: [
+      { name: "Instagram", handle: "@adaeze.glows", followers: 38000 },
+    ],
+    pitch:
+      "Skincare is my niche and I bring deep expertise. My audience is 80% female 20-35, which matches your target perfectly.",
+    appliedDate: "2026-03-06",
+    status: "approved",
+    proposedRate: 1800,
+  },
+  {
+    id: "a3",
+    campaignId: "bc1",
+    campaignTitle: "Botanical Serum Launch",
+    creatorId: "cr3",
+    creatorName: "Chisom Eze",
+    creatorAvatar: "CE",
+    creatorColor: "#60a5fa",
+    niche: ["Beauty", "Fashion"],
+    platforms: [
+      { name: "TikTok", handle: "@chisombeauty", followers: 91000 },
+      { name: "Instagram", handle: "@chisom.eze", followers: 21000 },
+    ],
+    pitch:
+      "My TikTok audience is highly engaged and loves skincare content. I can produce an authentic before/after series that will convert.",
+    appliedDate: "2026-03-08",
+    status: "pending",
+    proposedRate: 2200,
+  },
+  {
+    id: "a4",
+    campaignId: "bc1",
+    campaignTitle: "Botanical Serum Launch",
+    creatorId: "cr4",
+    creatorName: "Funmi Balogun",
+    creatorAvatar: "FB",
+    creatorColor: "#f43f5e",
+    niche: ["Lifestyle", "Beauty"],
+    platforms: [{ name: "Instagram", handle: "@funmi.b", followers: 12400 }],
+    pitch:
+      "I recently reviewed a competitor's serum and got 3× my normal reach. I believe botanical skincare will resonate with my community.",
+    appliedDate: "2026-03-10",
+    status: "shortlisted",
+    proposedRate: 900,
+  },
+  {
+    id: "a5",
+    campaignId: "bc3",
+    campaignTitle: "Founder Story Series",
+    creatorId: "cr5",
+    creatorName: "Emeka Nwosu",
+    creatorAvatar: "EN",
+    creatorColor: "#22c55e",
+    niche: ["Culture", "Storytelling"],
+    platforms: [
+      { name: "Instagram", handle: "@emeka.tells", followers: 28000 },
+      { name: "Twitter", handle: "@emekanwosu", followers: 14000 },
+    ],
+    pitch:
+      "I specialise in brand storytelling with an African lens. Your origin story is powerful and I would tell it with the depth it deserves.",
+    appliedDate: "2026-01-15",
+    status: "approved",
+    proposedRate: 650,
+  },
+];

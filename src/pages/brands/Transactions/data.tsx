@@ -1,0 +1,68 @@
+import type { Transaction } from "../../../components/dashboard/types";
+
+export const MOCK_TRANSACTIONS: Transaction[] = [
+  {
+    id: "bt1",
+    description: "Temitope Adeyemi — Campaign Payment",
+    amount: 1200,
+    type: "debit",
+    date: "2026-03-10",
+    status: "completed",
+  },
+  {
+    id: "bt2",
+    description: "Adaeze Obi — Campaign Payment",
+    amount: 1800,
+    type: "debit",
+    date: "2026-03-12",
+    status: "completed",
+  },
+  {
+    id: "bt3",
+    description: "Growth Plan — Monthly Subscription",
+    amount: 79,
+    type: "debit",
+    date: "2026-03-15",
+    status: "completed",
+  },
+  {
+    id: "bt4",
+    description: "Wallet Top-up",
+    amount: 5000,
+    type: "credit",
+    date: "2026-03-05",
+    status: "completed",
+  },
+  {
+    id: "bt5",
+    description: "Platform Fee (2%)",
+    amount: 60,
+    type: "debit",
+    date: "2026-03-10",
+    status: "completed",
+  },
+  {
+    id: "bt6",
+    description: "Funmi Balogun — Advance Payment",
+    amount: 450,
+    type: "debit",
+    date: "2026-03-18",
+    status: "pending",
+  },
+  {
+    id: "bt7",
+    description: "Wallet Top-up",
+    amount: 3000,
+    type: "credit",
+    date: "2026-02-01",
+    status: "completed",
+  },
+  {
+    id: "bt8",
+    description: "Emeka Nwosu — Campaign Payment",
+    amount: 650,
+    type: "debit",
+    date: "2026-02-20",
+    status: "completed",
+  },
+];

@@ -1,10 +1,13 @@
 import GridViewIcon from "@mui/icons-material/GridView";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import GavelIcon from "@mui/icons-material/Gavel";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
-import ManageSearchIcon from "@mui/icons-material/ManageSearch";
-import MemoryIcon from "@mui/icons-material/Memory";
+import {
+  AttachMoney,
+  Campaign,
+  ChatBubbleOutline,
+  Folder,
+  Person,
+  Settings,
+} from "@mui/icons-material";
 
 export const CREATOR_NAV = [
   {
@@ -17,21 +20,28 @@ export const CREATOR_NAV = [
   {
     label: "Campaigns",
     path: "/dashboard/creator/campaigns",
-    icon: ReceiptLongIcon,
+    icon: Campaign,
     children: [],
   },
 
   {
     label: "Projects",
     path: "/dashboard/creator/projects",
-    icon: GavelIcon,
+    icon: Folder,
+    children: [],
+  },
+
+  {
+    label: "Messaging",
+    path: "/dashboard/creator/messages",
+    icon: ChatBubbleOutline,
     children: [],
   },
 
   {
     label: "Transactions",
     path: "/dashboard/creator/transactions",
-    icon: MonetizationOnIcon,
+    icon: AttachMoney,
     children: [],
   },
 
@@ -44,15 +54,15 @@ export const CREATOR_NAV = [
 
   {
     label: "Profile",
-    path: "/dashboard/creator/tracking",
-    icon: ManageSearchIcon,
+    path: "/dashboard/creator/profile",
+    icon: Person,
     children: [],
   },
 
   {
     label: "Settings",
-    path: "/dashboard/creator/system",
-    icon: MemoryIcon,
+    path: "/dashboard/creator/settings",
+    icon: Settings,
     children: [],
   },
 ];
